@@ -88,4 +88,6 @@ La base de datos se encuentra en la carpeta src\main\resources/crearBaseDeDatos.
 
 ## Autores
 - Rocio Belen Crespo - https://www.github.com/rociocrespo200
+- Joaquin Oviedo - https://github.com/Joaco853
+- Rodrigo Monteagudo - https://github.com/MonteagudoRodrigo
 
