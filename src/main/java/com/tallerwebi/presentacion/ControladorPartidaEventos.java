@@ -1,6 +1,9 @@
 package com.tallerwebi.presentacion;
 
+import com.tallerwebi.dominio.Ronda;
 import com.tallerwebi.dominio.ServicioPartida;
+import com.tallerwebi.dominio.Usuario;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,15 +15,17 @@ import javax.servlet.http.HttpServletRequest;
 public class ControladorPartidaEventos {
 
     private ServicioPartida servicioPartida;
-    /*
-        @Autowired
-        public ControladorPartidaEventos(ServicioPartida servicioPartida) {
-            this.servicioPartida = servicioPartida;
+    private Evento evento;
+    @Autowired
+    public ControladorPartidaEventos(ServicioPartida servicioPartida) {
+        this.servicioPartida = servicioPartida;
+    }
 
-        }*/
     @RequestMapping(path = "/truco", method = RequestMethod.POST)
     public ModelAndView eventotruco(HttpServletRequest request) {
         ModelAndView model = new ModelAndView();
+        evento= new Evento("truco",2);
+        model.addObject("evento_objeto", evento);
         model.addObject("usuarioJava", request.getSession().getAttribute("usuario"));
         model.addObject("evento", "Le canto Truco");
         model.setViewName("partida");
@@ -29,6 +34,8 @@ public class ControladorPartidaEventos {
     @RequestMapping(path = "/retruco", method = RequestMethod.POST)
     public ModelAndView eventoretruco(HttpServletRequest request) {
         ModelAndView model = new ModelAndView();
+        evento= new Evento("retruco",3);
+        model.addObject("evento_objeto", evento);
         model.addObject("usuarioJava", request.getSession().getAttribute("usuario"));
         model.addObject("evento", "Le canto Retruco");
         model.setViewName("partida");
@@ -38,6 +45,8 @@ public class ControladorPartidaEventos {
     @RequestMapping(path = "/vale_cuatro", method = RequestMethod.POST)
     public ModelAndView eventovale_cuatro(HttpServletRequest request) {
         ModelAndView model = new ModelAndView();
+        evento= new Evento("vale_cuatro",4);
+        model.addObject("evento_objeto", evento);
         model.addObject("usuarioJava", request.getSession().getAttribute("usuario"));
         model.addObject("evento", "Le canto Vale Cuatro");
         model.setViewName("partida");
@@ -47,6 +56,8 @@ public class ControladorPartidaEventos {
     @RequestMapping(path = "/envido", method = RequestMethod.POST)
     public ModelAndView eventoenvido( HttpServletRequest request) {
         ModelAndView model = new ModelAndView();
+        evento= new Evento("envido",2);
+        model.addObject("evento_objeto", evento);
         model.addObject("usuarioJava", request.getSession().getAttribute("usuario"));
         model.addObject("evento", "Le canto Envido");
         model.setViewName("partida");
@@ -56,6 +67,8 @@ public class ControladorPartidaEventos {
     @RequestMapping(path = "/real_envido", method = RequestMethod.POST)
     public ModelAndView eventoreal_envido( HttpServletRequest request) {
         ModelAndView model = new ModelAndView();
+        evento= new Evento("real_envido",3);
+        model.addObject("evento_objeto", evento);
         model.addObject("usuarioJava", request.getSession().getAttribute("usuario"));
         model.addObject("evento", "Le canto Real Envido");
         model.setViewName("partida");
@@ -67,6 +80,8 @@ public class ControladorPartidaEventos {
     @RequestMapping(path = "/falta_envido", method = RequestMethod.POST)
     public ModelAndView eventofalta_envido( HttpServletRequest request) {
         ModelAndView model = new ModelAndView();
+        evento= new Evento("falta_envido",0);
+        model.addObject("evento_objeto", evento);
         model.addObject("usuarioJava", request.getSession().getAttribute("usuario"));
         model.addObject("evento", "Le canto Falta Envido");
         model.setViewName("partida");
@@ -76,14 +91,17 @@ public class ControladorPartidaEventos {
     @RequestMapping(path = "/quiero", method = RequestMethod.POST)
     public ModelAndView eventoquiero( HttpServletRequest request) {
         ModelAndView model = new ModelAndView();
+        servicioPartida.registrarevento(evento);
         model.addObject("usuarioJava", request.getSession().getAttribute("usuario"));
         model.addObject("evento", "Quiero");
         model.setViewName("partida");
         return model;
     }
+    //necesito pasarle el usuario que no quiere o se va al mazo;
     @RequestMapping(path = "/no_quiero", method = RequestMethod.POST)
     public ModelAndView eventono_quiero( HttpServletRequest request) {
         ModelAndView model = new ModelAndView();
+        servicioPartida.noquiere(evento ,(Usuario)request.getSession().getAttribute("usuario"));
         model.addObject("usuarioJava", request.getSession().getAttribute("usuario"));
         model.addObject("evento", "No Quiero");
         model.setViewName("partida");
@@ -92,7 +110,7 @@ public class ControladorPartidaEventos {
     @RequestMapping(path = "/al_maso", method = RequestMethod.POST)
     public ModelAndView eventoal_maso(HttpServletRequest request) {
         ModelAndView model = new ModelAndView();
-        model.addObject("usuarioJava", request.getSession().getAttribute("usuario"));
+        servicioPartida.almazo((Usuario)request.getSession().getAttribute("usuario"));
         model.addObject("evento", "Me voy al maso");
         model.setViewName("partida");
         return model;

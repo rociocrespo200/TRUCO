@@ -1,5 +1,6 @@
 package com.tallerwebi.dominio;
 
+import com.tallerwebi.presentacion.Evento;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,5 +52,15 @@ public class ServicioPartida {
 
     public List<Usuario>  obtenerJugadoresEnLaPartida() {
         return repositorioPartida.obtenerJugadoresEnLaPartida();
+    }
+
+
+    public void registrarevento(Evento evento) {
+    }
+
+    public void noquiere(Evento evento, Usuario usuario) {
+    }
+
+    public void almazo(Usuario usuario) {
     }
 }
