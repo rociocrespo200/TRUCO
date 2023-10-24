@@ -1,0 +1,46 @@
+body{
+    background-image: url('../assets/fondo_home.jpg');
+    background-size: cover;
+    background-repeat:no-repeat;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.starter-template {
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+h1{
+	color:#0000FF;
+	margin-bottom: 1em;
+}
+
+form.login input{
+    margin-bottom: 1em;
+}
+
+.navbar-brand{
+    margin:0 2rem;
+}
+
+p.mensaje_error{
+    margin: 1em 0;
+}
+
+a#ir-a-registrarme {
+    text-decoration: none;
+    color: black;
+}
+a#ir-a-registrarme:hover{
+    color: greyfox;
+}
+
+a#ir-a-registrarme:visited, a#ir-a-registrarme:active{
+    text-decoration: none;
+    color: black;
+}

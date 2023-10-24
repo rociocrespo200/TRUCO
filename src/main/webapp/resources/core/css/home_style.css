@@ -1,0 +1,248 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fira+Sans+Condensed:wght@100;200;400;500&family=Nabla&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* font-family: 'Bebas Neue', sans-serif; */
+    font-family: 'Roboto', sans-serif;
+}
+
+.material-symbols-sharp {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+
+.material-symbols-outlined {
+    font-size: 35px !important;
+    color: yellow;
+    font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 30
+}
+
+body{
+    background-image: url("../assets/fondo_home.jpg");
+    background-size: contain;
+}
+
+div#contenedor_principal_flex{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+
+aside#barra_lateral{
+    width: calc(20% - 0.5em);
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    opacity: 0.8;
+}
+
+aside#barra_lateral #container_logo{
+    padding: 1em;
+}
+
+aside#barra_lateral #container_logo img{
+    max-width: 100%;
+    align-self: center;
+    overflow: hidden;
+}
+
+aside#barra_lateral #perfil_usuario{
+    margin: 0.5em;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    /* align-items: center; */
+    padding: 1em;
+}
+
+#imagen_falsa{
+    width: calc(40% - 0.5em);
+    height: 100px;
+    background-color: red;
+    border-radius: 5%;
+}
+
+#datos_usuario{
+    width: calc(60% - 0.5em);
+    padding: 0.5;
+    color: white;
+}
+
+#username{
+    text-align: center;
+    color: beige;
+}
+
+#nombre_completo{
+    color: darkgrey;
+}
+
+#datos_usuario hr{
+    margin-bottom: 1em;
+}
+
+#botonera{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#lista_botones{
+    width: 100%;
+    list-style: none;
+}
+
+.botones_menu{
+    text-align: center;
+    background-color: yellow;
+    padding: 0.5em;
+    margin-bottom: 0.1em;
+    background-color: black;
+    color: white;
+}
+
+.botones_menu:hover{
+    background-color: #1a1a1a;
+}
+
+.botones_menu{
+    cursor: pointer;
+}
+
+.botones_menu a{
+    color: white;
+    text-decoration: none;
+}
+
+div#monedero{
+    color: white;
+    margin-top: 15em;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0 1em;
+    align-items: center;
+    /* background-color: aliceblue; */
+}
+
+div#monedero h4{
+    width: 100%;
+    text-align: center;
+}
+
+div#monedero #creditos_cargados{
+    font-size: 25px;
+    font-family: 'Nabla', cursive;
+    width: calc(50% - 0.3em);
+    padding-left: 0.2em;
+}
+
+div#monedero .material-symbols-outlined{
+    width: calc(20% - 0.3em);
+    text-align: center;
+}
+
+div#monedero p ~ h4{
+    margin-top: 1em;
+}
+
+#recargar_saldo{
+    text-decoration: none;
+    cursor: pointer;
+    color: white;
+}
+
+#recargar_saldo:hover{
+    color: coral;
+}
+
+main#contenedor_main{
+    width: calc(75% - 0.5em);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    height: 100vh;
+}
+main#contenedor_main > section{
+    margin: 1em;
+    height: 80%;
+}
+
+section#contenedor_variable{
+    width: calc(60% - 0.5em);
+    background-color: bisque;
+    border-radius: 1%;
+    height: 825px;
+}
+
+section#contenedor_informacion{
+    width: calc(35% - 0.5em);
+    background-color: black;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 1%;
+    opacity: 0.8;
+}
+
+article.informacion_juego{
+    padding: 1em;
+    width: calc(100% - 1em);
+    display: flex;
+    flex-direction: column;
+}
+
+
+article.informacion_juego img{
+    max-width: 100%;
+    /* background-color: red; */
+}
+
+article.informacion_juego p{
+    padding: 1em;
+    color: white;
+    font-size: 15px;
+}
+
+#contenedor_informacion #reglas{
+    display: block;
+    text-align: center;
+    width: 75%;
+    margin: 1em 1em;
+    padding: 1em;
+    background-color: black;
+    border-radius: 1%;
+    justify-self: flex-end;
+}
+
+#contenedor_informacion #reglas a{
+    text-decoration: none;
+    color: white;
+}
+
+#contenedor_informacion #reglas:hover{
+    background-color: #1a1a1a;
+    cursor: pointer;
+}
+
+#logo_truco{
+    background-image: url("../assets/titulo_truco.png");
+}
+
+#logo_envido{
+    background-image: url("../assets/titulo_envido.png");
+}

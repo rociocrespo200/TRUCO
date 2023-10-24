@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Home</title>
+
+  <!-- custom style -->
+  <link rel="stylesheet" th:href="@{/css/home_style.css}">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+</head>
+
+<body>
+<div id="contenedor_principal_flex">
+  <aside id="barra_lateral">
+    <div id="container_logo">
+      <img th:src="@{/assets/logo_principal_recortado.png}" alt="logo_principal_recortado">
+    </div>
+    <div id="perfil_usuario">
+      <div id="imagen_falsa"></div>
+      <div id="datos_usuario">
+        <a href="perfil.html"><h3 th:text="${usuario.username}" id="username"></h3></a>
+
+        <!--<h3 text="USERNAME" id="username">USERNAME</h3>-->
+        <hr>
+        <h4 th:text="${usuario.nombre} +' '+ ${usuario.apellido}" id="nombre_completo">Nombre Completo</h4>
+        <!--<h4 text="NOMBRE Y APELLIDO" id="nombre_completo">Nombre Completo</h4>-->
+        <p class="historial">Partidas jugadas: 111</p>
+        <p class="historial">Partidas ganadas: 3</p>
+      </div>
+    </div>
+    <nav id="botonera">
+      <ul id="lista_botones">
+        <!-- <li class="botones_menu">
+            <a href="./">INICIO</a>
+        </li> -->
+        <li class="botones_menu">
+          <a href="iniciarPartida.html">INICIAR NUEVO JUEGO</a>
+        </li>
+        <li class="botones_menu">
+          <a href="./">HISTORIAL COMPLETO</a>
+        </li>
+        <li class="botones_menu">
+          <a href="./">RANKING</a>
+        </li>
+        <li class="botones_menu">
+          <a href="salas.html">VER SALAS</a>
+        </li>
+        <li class="botones_menu">
+          <a href="./">TORNEO</a>
+        </li>
+      </ul>
+    </nav>
+    <div id="monedero">
+      <h4>CREDITOS ACTUALES</h4>
+      <span class="material-symbols-outlined">
+                    monetization_on
+                </span>
+      <p id="creditos_cargados"> ARS$45.154</p>
+      <!-- <span class="material-symbols-outlined">
+          add_circle
+          </span> -->
+      <h4><a href="#" id="recargar_saldo">Recargar saldo</a></h4>
+    </div>
+  </aside>
+  <main id="contenedor_main">
+    <section id="contenedor_variable">
+      <!--<a href="iniciarPartida.html" >Iniciar Partida</a>-->
+    </section>
+    <section id="contenedor_informacion">
+      <article class="informacion_juego">
+        <!-- <div class="contenedor_imagen" id="logo_truco"> -->
+        <img th:src="@{/assets/titulo_truco_recortado.png}" alt="titulo_truco_recortado">
+        <!-- </div> -->
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod aliquam beatae consequatur
+          architecto nam rem animi, illum harum soluta, est assumenda alias nisi quis provident deserunt
+          sunt ullam? Esse, vitae.</p>
+      </article>
+      <article class="informacion_juego">
+        <!-- <div class="contenedor_imagen" id="logo_envido"> -->
+        <img th:src="@{/assets/titulo_envido_recortado.png}" alt="titulo_envido_recortado">
+        <!-- </div> -->
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod aliquam beatae consequatur
+          architecto nam rem animi, illum harum soluta, est assumenda alias nisi quis provident deserunt
+          sunt ullam? Esse, vitae.</p>
+      </article>
+      <p id="reglas">
+        <a href="./">REGLAS DEL JUEGO</a>
+      </p>
+    </section>
+  </main>
+</div>
+<script src="./js/script.js"></script>
+<!-- Boostrap core js -->
+<script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+</body>
+</html>

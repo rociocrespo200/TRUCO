@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Inicio de Sesión</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet"  th:href="@{/css/style.css}">
+</head>
+<body>
+    <main>
+        <div class="formulario">
+            <div class="logo_container">
+                <img th:src="@{/assets/logo_principal_recortado.png}" class="img_titulo pb-5">
+            </div>
+            <h2>Registrarse</h2>
+            <form th:action="@{/registrarme}" method="POST" class="w-75" th:object="${usuario}">
+                <div class="form-group">
+                    <input th:field="*{nombre}" id="nombre" class="form-control" placeholder="Nombre" required>
+                </div>
+                <div class="form-group">
+                    <input th:field="*{apellido}" id="apellido" class="form-control" placeholder="Apellido" required>
+                </div>
+                <!--<div class="form-group">
+                    <input th:field="*{fechaNacimiento}" id="fechaNacimiento" type="date" class="form-control" required>
+                </div>-->
+                <div class="form-group">
+                    <input th:field="*{email}" id="email" class="form-control" placeholder="E-mail" required>
+                </div>
+                <div class="form-group">
+                    <input th:field="*{username}" id="username" class="form-control" placeholder="Nombre de usuario" required>
+                </div>
+                <div class="form-group">
+                    <input th:field="*{password}" id="password" type="password" class="form-control" placeholder="Contrasena" required>
+                </div>
+                <button id="btn-registrarme" class="btn btn-lg btn-primary btn-block mt-3 mb-2" Type="Submit">Registrarme</button>
+                <p th:if="${error != null}" class="alert alert-danger" th:text="'Error ' + ${error}">
+                </p>
+            </form>
+        </div>
+        <!--<div class="informacion container">
+            <div class="row">
+                <div class="img_container">
+                    <img class="img_titulo" th:src="@{/assets/titulo_truco_recortado.png}" alt="">
+                </div>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid, odio cum atque, odit provident, adipisci quod ut ab reprehenderit quis libero voluptatum dicta voluptate magni deleniti excepturi? In necessitatibus corrupti recusandae voluptate aut vitae deserunt accusantium odit animi ad facere, sed, natus qui. Assumenda a itaque, praesentium sequi qui hic.</p>
+            </div>
+            <div class="row">
+                <div class="img_container">
+                    <img class="img_titulo" th:src="@{/assets/titulo_envido_recortado.png}" alt="">
+                </div>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid, odio cum atque, odit provident, adipisci quod ut ab reprehenderit quis libero voluptatum dicta voluptate magni deleniti excepturi? In necessitatibus corrupti recusandae voluptate aut vitae deserunt accusantium odit animi ad facere, sed, natus qui. Assumenda a itaque, praesentium sequi qui hic.</p>
+            </div>
+        </div>-->
+    </main>
+</body>
+</html>

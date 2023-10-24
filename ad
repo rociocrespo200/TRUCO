@@ -1,0 +1,36 @@
+[33mcommit b2670b9f25cee32e9bd5056ae49a253c697061b5[m[33m ([m[1;36mHEAD -> [m[1;32mrodrigo[m[33m, [m[1;31morigin/rodrigo[m[33m)[m
+Merge: 49e2be2 bee2f0e
+Author: MonteagudoRodrigo <71356504+MonteagudoRodrigo@users.noreply.github.com>
+Date:   Thu Sep 14 15:51:17 2023 -0300
+
+    Merge branch 'Rocio' into rodrigo
+
+[33mcommit 49e2be2fa7af95f9376ae2c2356f8494098831b5[m
+Author: MonteagudoRodrigo <71356504+MonteagudoRodrigo@users.noreply.github.com>
+Date:   Thu Sep 14 05:24:47 2023 -0300
+
+    creados los archivos
+
+[33mcommit bee2f0ebbb5fac8d5884a45678f9107e39415407[m[33m ([m[1;31morigin/Rocio[m[33m, [m[1;32mRocio[m[33m)[m
+Author: rociocrespo200 <rociocrespo200@gmail.com>
+Date:   Mon Sep 11 16:12:16 2023 -0300
+
+    Vistas ingreso
+
+[33mcommit ab1fc1e0dd3cc44d137721fcad377e80e63369ef[m
+Author: rociocrespo200 <rociocrespo200@gmail.com>
+Date:   Sun Sep 3 21:40:22 2023 -0300
+
+    estructura del index y singin con estilos
+
+[33mcommit e38fa3216b647ed76084a7a886d991b22104d367[m[33m ([m[1;31morigin/rama_ale[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/cintia[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mrama_ale[m[33m, [m[1;32mmaster[m[33m)[m
+Author: CPinaud <42610287+Cpinaud@users.noreply.github.com>
+Date:   Sun Sep 3 16:31:36 2023 -0300
+
+    Update ci.yml
+
+[33mcommit 18acbac5427db50a301105b7134b592b25ba369f[m
+Author: cpinaud <cintiapinaud@gmail.com>
+Date:   Sun Sep 3 16:17:14 2023 -0300
+
+    primero
