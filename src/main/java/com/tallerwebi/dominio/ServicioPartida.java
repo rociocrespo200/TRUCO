@@ -56,11 +56,14 @@ public class ServicioPartida {
 
 
     public void registrarevento(Evento evento) {
+        repositorioPartida.registrarevento(evento);
     }
 
     public void noquiere(Evento evento, Usuario usuario) {
+        repositorioPartida.noquiere(evento,usuario);
     }
 
     public void almazo(Usuario usuario) {
+        repositorioPartida.almazo(usuario);
     }
 }

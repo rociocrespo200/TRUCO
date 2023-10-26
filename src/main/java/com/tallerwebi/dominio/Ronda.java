@@ -1,5 +1,7 @@
 package com.tallerwebi.dominio;
 
+import com.tallerwebi.presentacion.Evento;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,6 +52,10 @@ public class Ronda {
            if( manoDelJugador.get(i).getJugador() == usuario) return true;
         }
         return false;
+    }
+
+    public void crearEvento(Usuario usuario, Evento evento){
+
     }
 
     private boolean validarSiTerminoMano() {

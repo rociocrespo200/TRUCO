@@ -1,6 +1,7 @@
 package com.tallerwebi.infraestructura;
 
 import com.tallerwebi.dominio.*;
+import com.tallerwebi.presentacion.Evento;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -62,6 +63,21 @@ public class RepositorioPartidaImpl implements RepositorioPartida {
         return partida.obtenerJugadoresEnLaPartida();
     }
 
+    @Override
+    public void registrarevento(Evento evento) {
+
+    }
+
+    @Override
+    public void noquiere(Evento evento, Usuario usuario) {
+
+    }
+
+    @Override
+    public void almazo(Usuario usuario) {
+
+    }
+
     public List<Carta> obtenerBaraja() {
         return sessionFactory.getCurrentSession().createQuery("FROM Carta", Carta.class).list();
     }
@@ -100,4 +116,6 @@ public class RepositorioPartidaImpl implements RepositorioPartida {
         Carta carta = obtenerCarta(idCarta);
         partida.obtenerRondaActual().jugarCarta(usuario, carta);
     }
+
+
 }
