@@ -35,6 +35,9 @@
         <form action="#" th:action="@{/crear_sala}"  method="POST"  class="w-75">
 
             <p th:if="${ninguna_sala != null}" class="alert alert-danger" th:text="'Error ' + ${ninguna_sala}">
+            <p th:if="${Error_SalaYaNoExiste != null}" class="alert alert-danger" th:text="'Error ' + ${Error_SalaYaNoExiste}">
+            <p th:if="${Error_LaSalaSeLLeno != null}" class="alert alert-danger" th:text="'Error ' + ${Error_LaSalaSeLLeno}">
+
             </p>
             <button id="btn-login2" class="btn" Type="Submit">Crear Sala</button>
 

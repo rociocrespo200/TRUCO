@@ -8,6 +8,9 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Properties;
 
 @Configuration
@@ -17,13 +20,17 @@ public class HibernateConfig {
     //Datos y configuracion del motor con el que voy a matchear
     //
     @Bean
-    public DataSource dataSource() {
+    public DataSource dataSource() throws SQLException {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         //se debe buscar el connection string para el motor que se elija
         dataSource.setUrl("jdbc:mysql://localhost:3306/data");
+
         dataSource.setUsername("root");
         dataSource.setPassword("");
+
+
+
         return dataSource;
     }
 
@@ -42,7 +49,7 @@ public class HibernateConfig {
     //cómo se van a manejar las transacciones?
 
     @Bean
-    public HibernateTransactionManager transactionManager() {
+    public HibernateTransactionManager transactionManager() throws SQLException {
         return new HibernateTransactionManager(sessionFactory(dataSource()).getObject());
     }
 

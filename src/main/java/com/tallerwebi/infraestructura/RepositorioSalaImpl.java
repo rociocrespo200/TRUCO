@@ -46,6 +46,19 @@ public class RepositorioSalaImpl implements RepositorioSala {
         return (List<Sala>) sessionFactory.getCurrentSession().createCriteria(Sala.class).list();
     }
 
+    @Override
+    public void modificarSala(Sala sala){
+
+        sessionFactory.getCurrentSession().update(sala);
+
+    }
+
+    @Override
+    public void eliminarsala(Sala sala) {
+        sessionFactory.getCurrentSession().delete(sala);
+    }
+
+
 }
 
 

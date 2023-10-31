@@ -39,6 +39,11 @@ public class Ronda {
                 cartas.remove(cartaAleatoria);
             }
             manoDelJugador.add(new Mano (jugadores.get(i), cartasAleatorias));
+
+
+
+
+
         }
     }
 

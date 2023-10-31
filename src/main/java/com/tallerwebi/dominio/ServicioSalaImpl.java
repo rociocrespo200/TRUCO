@@ -42,4 +42,15 @@ public class ServicioSalaImpl implements ServicioSala {
     }
 
 
+    @Override
+    public void modificarsala(Sala sala){
+        serviciosalaDao.modificarSala(sala);
+    }
+
+    @Override
+    public void eliminarsala(Sala sala) {
+        serviciosalaDao.eliminarsala(sala);
+    }
+
+
 }

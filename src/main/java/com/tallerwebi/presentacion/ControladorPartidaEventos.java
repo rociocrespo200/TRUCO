@@ -64,6 +64,8 @@ public class ControladorPartidaEventos {
         return model;
     }
 
+
+
     @RequestMapping(path = "/real_envido", method = RequestMethod.POST)
     public ModelAndView eventoreal_envido( HttpServletRequest request) {
         ModelAndView model = new ModelAndView();
@@ -76,6 +78,23 @@ public class ControladorPartidaEventos {
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //como obtener la cantidad de puntos faltantes para ganar para calcular el valor.
     @RequestMapping(path = "/falta_envido", method = RequestMethod.POST)
     public ModelAndView eventofalta_envido( HttpServletRequest request) {
@@ -84,9 +103,40 @@ public class ControladorPartidaEventos {
         model.addObject("evento_objeto", evento);
         model.addObject("usuarioJava", request.getSession().getAttribute("usuario"));
         model.addObject("evento", "Le canto Falta Envido");
+
+
+
+
+
+
+
+        model.addObject("carta1", servicioPartida.obtenerManoDelJugador(((Usuario)request.getSession().getAttribute("usuario")).getId()).get(0));
+        model.addObject("carta2", servicioPartida.obtenerManoDelJugador(((Usuario)request.getSession().getAttribute("usuario")).getId()).get(1));
+        model.addObject("carta3", servicioPartida.obtenerManoDelJugador(((Usuario)request.getSession().getAttribute("usuario")).getId()).get(2));
+
+
+
+
+
         model.setViewName("partida");
         return model;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @RequestMapping(path = "/quiero", method = RequestMethod.POST)
     public ModelAndView eventoquiero( HttpServletRequest request) {
@@ -186,3 +236,9 @@ public class ControladorPartidaEventos {
 
      */
 }
+
+
+
+
+
+

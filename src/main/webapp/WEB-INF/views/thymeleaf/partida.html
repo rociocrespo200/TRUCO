@@ -91,9 +91,15 @@
         </div>
         <div class="option-container" th:if="${evento== 'Le canto Envido'} and ${evento!= 'Le canto Falta Envido'}">
             <form action="#" th:action="@{/real_envido}"  method="POST"  class="w-75" th:object="${evento}">
+                <button class="btn btn-primary" Type="Submit" value="real_envido" name="envido_envido" >ENVIDO ENVIDO</button>
+            </form>
+        </div>
+        <div class="option-container" th:if="${evento== 'Le canto Envido'} and ${evento!= 'Le canto Falta Envido'}">
+            <form action="#" th:action="@{/real_envido}"  method="POST"  class="w-75" th:object="${evento}">
                 <button class="btn btn-primary" Type="Submit" value="real_envido" name="real_envido" >REAL ENVIDO</button>
             </form>
         </div>
+
         <div class="option-container" th:if="${evento== 'Le canto Real Envido'}">
             <form action="#" th:action="@{/falta_envido}"  method="POST"  class="w-75" th:object="${evento}">
                 <button class="btn btn-primary" Type="Submit" value="falta_envido" name="falta_envido" >FALTA ENVIDO</button>

@@ -11,4 +11,8 @@ public interface RepositorioSala {
     boolean guardarSala(Sala sala);
 
     List<Sala> obtenersalas();
+
+    void modificarSala(Sala sala);
+
+    void eliminarsala(Sala nombreSala);
 }

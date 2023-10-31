@@ -12,6 +12,7 @@
 <div class="overlay">
     <div class="formulario">
         <h2>Esperando al resto de jugadores</h2>
+        <p th:text="${nombre_sala}"></p>
 
         <p th:text="${cantidadJugadoresInt}"></p>
 
@@ -20,7 +21,12 @@
             <button id="btn-login" class="btn" Type="Submit">Sala completa</button>
 
 
+        </form>
+        <br>
+        <form action="#" th:action="@{/abandonarsala}"  method="POST"  class="w-75" th:object="${nombre_sala}">
 
+            <button id="btn btn-danger" class="btn btn-danger" Type="Submit">AbandonarSala</button>
+                <input type="hidden" name="nombre_sala" th:value="${nombre_sala}">
 
         </form>
     </div>
