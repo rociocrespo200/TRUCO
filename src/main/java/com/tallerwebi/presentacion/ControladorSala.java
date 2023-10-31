@@ -54,8 +54,7 @@ public class ControladorSala {
             servicioSala.modificarsala(sala);
 
         }
-        sala.setCantidad_de_jugadores_en_sala(2);
-        servicioSala.modificarsala(sala);
+
 
         model.setViewName("redirect:/salas");
 
@@ -72,8 +71,9 @@ public class ControladorSala {
     public ModelAndView IngresaraSala(@ModelAttribute("nombre_sala") String nombre_sala) {
         ModelAndView model = new ModelAndView();
         if (servicioSala.obtenersala(nombre_sala) ==null){
-            model.addObject("Error_SalaYaNoExiste","Lo sentimos pero la Sala ya no existe");
+            model.addObject("Error_SalaYaNoExiste","Lo sentimos pero la Sala"+nombre_sala+"  ya no existe");
             model.setViewName("redirect:/salas");
+            return model;
 
         }
         if (servicioSala.obtenersala(nombre_sala).getCantidad_de_jugadores_en_sala() == 2){

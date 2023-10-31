@@ -17,8 +17,9 @@
             <div th:each="salas : ${ListadeSalas}">
                 <div class="container">
                     <form action="#" th:action="@{/ingresar_a_sala}"  method="POST"  class="w-75" th:object="${nombre_sala}">
-                        <p th:text="${salas.nombre_sala}" name="nombre_sala"> </p>
+                        <p th:text="${salas.nombre_sala}" name="nombre_sala" > </p>
                         <p th:text="${salas.cantidad_de_jugadores_en_sala} + '/'+ ${salas.cantidadMaximaJugadores}"></p>
+                        <input type="hidden" name="nombre_sala" th:value="${salas.nombre_sala}">
 
 
 
@@ -31,17 +32,15 @@
             </div>
         </div>
 
+        <p th:if="${ninguna_sala != null}" class="alert alert-danger" th:text="'Error ' + ${ninguna_sala}"></p>
+        <p th:if="${Error_SalaYaNoExiste != null}" class="alert alert-danger" th:text="'Error ' + ${Error_SalaYaNoExiste}"></p>
+        <p th:if="${Error_LaSalaSeLLeno != null}" class="alert alert-danger" th:text="'Error ' + ${Error_LaSalaSeLLeno}"></p>
 
         <form action="#" th:action="@{/crear_sala}"  method="POST"  class="w-75">
 
-            <p th:if="${ninguna_sala != null}" class="alert alert-danger" th:text="'Error ' + ${ninguna_sala}">
-            <p th:if="${Error_SalaYaNoExiste != null}" class="alert alert-danger" th:text="'Error ' + ${Error_SalaYaNoExiste}">
-            <p th:if="${Error_LaSalaSeLLeno != null}" class="alert alert-danger" th:text="'Error ' + ${Error_LaSalaSeLLeno}">
-
-            </p>
             <button id="btn-login2" class="btn" Type="Submit">Crear Sala</button>
 
-
+        </form>
 
     </div>
 </div>

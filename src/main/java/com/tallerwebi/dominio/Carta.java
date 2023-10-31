@@ -18,7 +18,7 @@ public class Carta {
     private int nro;
 
     @ManyToOne
-    @JoinColumn(name = "palo_id") // Asegúrate de que este nombre coincida con la columna en tu base de datos
+    @JoinColumn(name = "palo") // Asegúrate de que este nombre coincida con la columna en tu base de datos
     private Palo palo;
 
     @Column(name = "valor")

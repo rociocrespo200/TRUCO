@@ -16,7 +16,7 @@
 
         <p th:text="${cantidadJugadoresInt}"></p>
 
-        <form action="#" th:action="@{/partida}"  method="POST"  class="w-75">
+        <form th:if="${cantidadJugadoresInt == 2}" action="#" th:action="@{/partida}"  method="POST"  class="w-75">
 
             <button id="btn-login" class="btn" Type="Submit">Sala completa</button>
 
