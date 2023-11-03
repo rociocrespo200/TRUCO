@@ -50,14 +50,17 @@ public class Ronda {
 
     public void jugarCarta(Usuario usuario, Carta carta){
 
-        cartasEnLaMesa.add(new Jugada(usuario.getId(), carta));
+        if(cartasEnLaMesa.isEmpty() || obtenerUltimaJugada().getJugador() != usuario.getId()){
+            cartasEnLaMesa.add(new Jugada(usuario.getId(), carta));
+        }
 
-        if(cartasEnLaMesa.size() == 2){
-            terminarMano();
-        }
-        if(validarSiLaRondaTermino()){
-            terminarRonda();
-        }
+
+//        if(cartasEnLaMesa.size() == 2){
+//            terminarMano();
+//        }
+//        if(validarSiLaRondaTermino()){
+//            terminarRonda();
+//        }
 
     }
 
@@ -126,7 +129,7 @@ public class Ronda {
 
 
     public Jugada obtenerUltimaJugada() {
-        return cartasEnLaMesa.get(cartasEnLaMesa.size()-1);
+        return (cartasEnLaMesa.size() != 1) ? cartasEnLaMesa.get(cartasEnLaMesa.size()-1) : cartasEnLaMesa.get(0);
     }
 
     private void ordenarJugadores(Usuario ganador) {

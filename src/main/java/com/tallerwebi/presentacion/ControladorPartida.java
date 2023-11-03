@@ -139,6 +139,10 @@ public class ControladorPartida {
                 return model;
             }
 
+            Jugada ultimaJugada = servicioPartida.obtenerUltimaJugada();
+            if(ultimaJugada.getCarta().getId() != jugada.getCarta()){
+                return null;
+            }
             return servicioPartida.obtenerUltimaJugada();
 
         } else if (tipo.equals("evento")) {

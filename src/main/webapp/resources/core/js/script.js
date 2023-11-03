@@ -14,25 +14,17 @@ stompClient.onConnect = (frame) => {
     stompClient.subscribe('/topic/messages', (m) => {
 
 
+        if(m.body == null){
+            console.log("No es tu turno")
+        }else{
+            var mensajeEnviado = JSON.parse(m.body)
+            let imageUrl = JSON.parse(m.body).content;
 
-        var mensajeEnviado = JSON.parse(m.body)
-        let imageUrl = JSON.parse(m.body).content;
+            console.log("----------------Contenido --------------")
+            console.log(mensajeEnviado);
+            console.log("Usuario que envio = " + mensajeEnviado.idUsuario);
 
-        // // Encuentra la imagen en el documento o crea una nueva
-        // let imgElement = document.getElementById("imageElementId");
-        // if (!imgElement) {
-        //     imgElement = document.createElement("img");
-        //     imgElement.id = "imageElementId";
-        // }
-        //
-        // // Establece el atributo src de la imagen
-        // imgElement.src = imageUrl;
-
-        console.log("----------------Contenido --------------")
-        console.log(mensajeEnviado);
-        console.log("Usuario que envio = " + mensajeEnviado.idUsuario);
-
-        const usuarioGuardado = sessionStorage.getItem('usuarioSession');
+            const usuarioGuardado = sessionStorage.getItem('usuarioSession');
 
 
             // Convierte la cadena JSON de vuelta a un objeto.
@@ -46,9 +38,7 @@ stompClient.onConnect = (frame) => {
                 tirada_del_jugador.setAttribute("src", imageUrl);
             }
 
-
-
-
+        }
 
     });
 };
@@ -64,22 +54,14 @@ stompClient.onStompError = (frame) => {
 
 stompClient.activate();
 
-let jugadasDeLaRonda = [];
+
 function moveImage(contenedor, imageUrl, idUsuario, imageNumber) {
     sessionStorage.setItem('usuarioSession', JSON.stringify(idUsuario));
 
-    if(jugadasDeLaRonda.length === 0 || jugadasDeLaRonda[jugadasDeLaRonda.length - 1].obj.jugador !== idUsuario){
+
         var contenedor = document.getElementById(contenedor);
         var jugadaMia = document.getElementById("jugada_mia");
-        jugadaMia.setAttribute("src", imageUrl);
 
-
-        stompClient.publish({
-            destination: "/app/chat",
-            body: JSON.stringify({message: imageUrl, usuarioId: idUsuario})
-        });
-
-        contenedor.style.display = "none";
 
         let jugada = {
             tipo: "jugada",
@@ -88,7 +70,7 @@ function moveImage(contenedor, imageUrl, idUsuario, imageNumber) {
                 jugador: idUsuario
             }
         };
-        jugadasDeLaRonda.push(jugada);
+
 
         // Crear una solicitud POST utilizando AJAX - JUGADA
         var xhr = new XMLHttpRequest();
@@ -104,9 +86,26 @@ function moveImage(contenedor, imageUrl, idUsuario, imageNumber) {
 
             if (xhr.status === 200) {
                 try {
-                    var response = JSON.parse(xhr.responseText);
-                    console.log("Respuesta:", response);
-                    console.log(typeof response);
+                    if(xhr.responseText === ""){
+                        console.log("No es tu turno");
+                    }else{
+                        jugadaMia.setAttribute("src", imageUrl);
+
+
+                        stompClient.publish({
+                            destination: "/app/chat",
+                            body: JSON.stringify({message: imageUrl, usuarioId: idUsuario})
+                        });
+
+                        contenedor.style.display = "none";
+
+                        var response = JSON.parse(xhr.responseText);
+                        console.log("Respuesta:", response);
+                        console.log(typeof response);
+                    }
+                // console.log("AJAX recibio la jugada")
+                //     console.log(xhr.responseText)
+                //     console.log(typeof xhr.responseText)
                     // Realiza acciones adicionales según la respuesta recibida
                 } catch (e) {
                     console.error("No se pudo analizar la respuesta como JSON. Error:" + e);
@@ -123,10 +122,7 @@ function moveImage(contenedor, imageUrl, idUsuario, imageNumber) {
         xhr.send(data);
 
 
-    }else {
-        console.log("No es tu turno");
-        //mostrar div de que no es su turno
-    }
+
 }
 
 
