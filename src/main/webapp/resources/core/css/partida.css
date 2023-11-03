@@ -207,3 +207,38 @@ div.mano_mia img{
     text-align: center;
 
 }
+
+.misCartas{
+    position: relative;
+
+}
+
+/* #carta1{
+    bottom: 273px;
+    left: 163px;
+}
+
+#carta2{
+    bottom: 273px;
+}
+
+#carta3{
+    bottom: 273px;
+    right: 163px;
+} */
+
+
+
+@keyframes tirarCarta1 {
+    0% {bottom: 0; left: 0;}
+    100% { bottom: 273px; left: 163px; scale: 1.1;}
+}
+
+@keyframes tirarCarta2 {
+    0% {bottom: 0;}
+    100% { bottom: 273px;  scale: 1.1;}
+}
+@keyframes tirarCarta3 {
+    0% {bottom: 0; left: 0;}
+    100% { bottom: 273px; right: 163px; scale: 1.1;}
+}

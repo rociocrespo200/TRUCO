@@ -15,6 +15,10 @@
 </head>
 <body>
 <section class="section_informacion">
+    <div th:if="${evento != null}" class="equipos" id="evenctoCantado">
+        <span class="span_equipos" th:text="${evento.nombre}"></span>
+        <p class="puntos">12</p>
+    </div>
     <div class="equipos" id="equipo3">
         <span class="span_equipos" th:text="${usuarioJava.username}"></span>
         <p class="puntos">usuario actual</p>
@@ -53,6 +57,10 @@
 
 </div>
 
+<div th:if="${popupTerminoRonda}" class="popup"  id="popup3"  th:text="${popupTerminoRonda}" >
+
+</div>
+
 
 
 <section class="section_eventos">
@@ -67,65 +75,15 @@
         </div>
 
     </div>
-    <div class="options-menu">
-        <div class="round-label">Ronda 1</div>
-        <div class="option-container" th:if="${evento!= 'Le canto Retruco'} and ${evento!= 'Le canto Vale Cuatro'}" >
-            <form action="#" th:action="@{/truco}"  method="POST"  class="w-75" th:object="${evento}">
-                <button class="btn btn-primary" type="submit" value='truco' name="truco" >TRUCO</button>
-            </form>
-        </div>
-        <div class="option-container" th:if="${evento== 'Le canto Truco'} and ${evento!= 'Le canto Vale Cuatro'}">
-            <form action="#" th:action="@{/retruco}"  method="POST"  class="w-75" th:object="${evento}">
-                <button class="btn btn-primary" Type="Submit" value="retruco"  name="retruco" >RETRUCO</button>
-            </form>
-        </div>
-        <div class="option-container" th:if="${evento== 'Le canto Retruco'}">
-            <form action="#" th:action="@{/vale_cuatro}"  method="POST"  class="w-75" th:object="${evento}">
-                <button class="btn btn-primary" Type="Submit" value="vale_cuatro"  name="vale_cuatro" >VALE CUATRO</button>
-            </form>
-        </div>
-        <div class="option-container" th:if="${evento!= 'Le canto Real Envido'} and ${evento!= 'Le canto Falta Envido'}">
-            <form action="#" th:action="@{/envido}"  method="POST"  class="w-75" th:object="${evento}">
-                <button class="btn btn-primary" Type="Submit" value="envido" name="envido" >ENVIDO</button>
-            </form>
-        </div>
-        <div class="option-container" th:if="${evento== 'Le canto Envido'} and ${evento!= 'Le canto Falta Envido'}">
-            <form action="#" th:action="@{/real_envido}"  method="POST"  class="w-75" th:object="${evento}">
-                <button class="btn btn-primary" Type="Submit" value="real_envido" name="real_envido" >REAL ENVIDO</button>
-            </form>
-        </div>
-        <div class="option-container" th:if="${evento== 'Le canto Real Envido'}">
-            <form action="#" th:action="@{/falta_envido}"  method="POST"  class="w-75" th:object="${evento}">
-                <button class="btn btn-primary" Type="Submit" value="falta_envido" name="falta_envido" >FALTA ENVIDO</button>
-            </form>
-        </div>
 
-        <div th:if="${evento != null   }" class="option-container" >
-            <h4  class=" rounded-pill border border-3 border border-primary text-primary" th:color="white" th:text="${evento}"></h4>
+    <form class="section_eventos_botones" method="post" action="crearEvento" id="eventos">
 
-            <div th:if=" ${evento!= 'Quiero'} and ${evento!= 'No Quiero'} and ${evento!= 'Me voy al maso'}" class="alert alert-danger">
-                <div class="option-container">
-                    <form action="#" th:action="@{/quiero}"  method="POST"  class="w-75" th:object="${evento}">
-                        <button class="btn btn-success" Type="Submit"  value="quiero" name="quiero" >QUIERO</button>
-                    </form>
-                </div>
-                <div class="option-container">
-                    <form action="#" th:action="@{/no_quiero}"  method="POST"  class="w-75" th:object="${evento}">
-                        <button class="btn btn-danger" Type="Submit" value="no_quiero"  name="no_quiero" >NO QUIERO</button>
-                    </form>
-                </div>
-                <div class="option-container">
-                    <form action="#" th:action="@{/al_maso}"  method="POST"  class="w-75" th:object="${evento}">
-                        <button class="btn btn-warning" Type="Submit" value="al_maso" name="al_maso" >AL MAZO</button>
-                    </form>
-                </div>
+    </form>
 
-            </div>
-        </div>
-    </div>
 </section>
 
 <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
+<script th:src="@{/js/eventos.js}"></script>
 <script th:src="@{/js/script.js}"></script>
 <script th:inline="javascript">
 
@@ -142,6 +100,28 @@
     document.getElementById('abandonar').addEventListener('click', function () {
         window.location.href = "/spring/home2";
     });
+
+    // let carta1 = document.getElementById('carta1');
+    // carta1.addEventListener('click', (e )=> {
+    //     carta1.style.zIndex = '200';
+    //     carta1.style.animationName = 'tirarCarta1';
+    //     carta1.style.animationDuration = '0.5s';
+    //     carta1.style.animationTimingFunction = 'linear';
+    // })
+    // let carta2 = document.getElementById('carta2');
+    // carta1.addEventListener('click', (e )=> {
+    //     carta1.style.zIndex = '200';
+    //     carta1.style.animationName = 'tirarCarta2';
+    //     carta1.style.animationDuration = '0.5s';
+    //     carta1.style.animationTimingFunction = 'linear';
+    // })
+    // let carta3 = document.getElementById('carta3');
+    // carta1.addEventListener('click', (e )=> {
+    //     carta1.style.zIndex = '200';
+    //     carta1.style.animationName = 'tirarCarta3';
+    //     carta1.style.animationDuration = '0.5s';
+    //     carta1.style.animationTimingFunction = 'linear';
+    // })
 </script>
 
 

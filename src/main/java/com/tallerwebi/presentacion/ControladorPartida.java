@@ -1,5 +1,6 @@
 package com.tallerwebi.presentacion;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tallerwebi.dominio.Jugada;
 import com.tallerwebi.dominio.ServicioPartida;
 import com.tallerwebi.dominio.Usuario;
@@ -10,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Map;
 
 @Controller
 
@@ -118,15 +120,65 @@ public class ControladorPartida {
         model.setViewName("sala_espera");
         return model;
     }
+
     @RequestMapping(value = "/partida", consumes = "application/json", method = RequestMethod.POST)
     @ResponseBody
-    public Jugada manejarJugada(@RequestBody DatosJugada jugada) {
+    public Object manejarJugada(@RequestBody DatosObjetoEnviado objeto) {
+        ObjectMapper objectMapper = new ObjectMapper();
 
-        servicioPartida.jugarCarta(jugada.getJugador(), jugada.getCarta());
+        String tipo = objeto.getTipo();
 
-        return servicioPartida.obtenerUltimaJugada();
+        if (tipo.equals("jugada")) {
+            DatosJugada jugada = objectMapper.convertValue(objeto.getObj(), DatosJugada.class);
+
+            servicioPartida.jugarCarta(jugada.getJugador(), jugada.getCarta());
+            if(servicioPartida.validarSiTerminoRonda()){
+                ModelAndView model = new ModelAndView();
+                model.setViewName("partida");
+                model.addObject("popupTerminoRonda", "Laronda ya termino");
+                return model;
+            }
+
+            return servicioPartida.obtenerUltimaJugada();
+
+        } else if (tipo.equals("evento")) {
+            DatosEvento evento = objectMapper.convertValue(objeto.getObj(), DatosEvento.class);
+            // servicioPartida.registrarEvento(evento);
+            // return servicioPartida.obtenerEventos();
+            return evento.getNombre();
+
+        } else {
+            return "Solicitud no válida";
+        }
     }
 
+
+//    @RequestMapping(value = "/partida", consumes = "application/json", method = RequestMethod.POST)
+//    @ResponseBody
+//    public Jugada manejarJugada(@RequestBody DatosJugada jugada) {
+//
+//
+//        servicioPartida.jugarCarta(jugada.getJugador(), jugada.getCarta());
+//
+//        return servicioPartida.obtenerUltimaJugada();
+//    }
+//
+//    @RequestMapping(value = "/eventos", consumes = "application/json", method = RequestMethod.POST)
+//    @ResponseBody
+//    public DatosEvento crearEvento(@RequestBody DatosEvento eventoFinal, HttpServletRequest request) {
+//
+//
+//        return eventoFinal;
+//    }
+//
+//    @RequestMapping("/eventos")
+//    public ModelAndView eventos() {
+//        ModelAndView model = new ModelAndView();
+//
+//        model.setViewName("partida");
+//
+//        return model;
+//    }
 
 
 

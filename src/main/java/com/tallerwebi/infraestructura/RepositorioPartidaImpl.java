@@ -1,6 +1,7 @@
 package com.tallerwebi.infraestructura;
 
 import com.tallerwebi.dominio.*;
+import com.tallerwebi.presentacion.DatosEvento;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -62,6 +63,11 @@ public class RepositorioPartidaImpl implements RepositorioPartida {
         return partida.obtenerJugadoresEnLaPartida();
     }
 
+    @Override
+    public boolean validarSiTerminoRonda() {
+        return partida.obtenerRondaActual().validarSiLaRondaTermino();
+    }
+
     public List<Carta> obtenerBaraja() {
         return sessionFactory.getCurrentSession().createQuery("FROM Carta", Carta.class).list();
     }
@@ -99,5 +105,11 @@ public class RepositorioPartidaImpl implements RepositorioPartida {
         Usuario usuario = partida.buscarUsuarioPorId(usuarioId);
         Carta carta = obtenerCarta(idCarta);
         partida.obtenerRondaActual().jugarCarta(usuario, carta);
+    }
+
+
+    public void registrarEvento(DatosEvento evento) {
+        //Evento eventoBD = consulta a la base de datos a partir de evento.getNombre()
+        //partida.obtenerRondaActual().registroEvento(eventoBD);
     }
 }

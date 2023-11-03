@@ -6,17 +6,25 @@ import java.util.List;
 public class Ronda {
     private List<Equipo> equipos;
     private List<Usuario> jugadores;
+
+    private Long ganador;
     private List<Carta> baraja; //hay que pasarle la baraja desde la base de datos;
     private List<Mano> manoDelJugador;
+
     private List<Jugada> cartasEnLaMesa;
+    private List<Jugada> jugadasDeLaRonda;
+
+    //private List<Evento> eventos;
 
 
     public Ronda(List<Equipo> equipos, List<Usuario> jugadores, List<Carta> baraja) {
         this.equipos = equipos;
         this.jugadores = jugadores;
         this.baraja = baraja;
+        this.ganador = null;
         manoDelJugador = new ArrayList<>();
         cartasEnLaMesa = new ArrayList<>();
+        jugadasDeLaRonda = new ArrayList<>();
         //repartir();
     }
 
@@ -41,27 +49,84 @@ public class Ronda {
     }
 
     public void jugarCarta(Usuario usuario, Carta carta){
+
         cartasEnLaMesa.add(new Jugada(usuario.getId(), carta));
+
+        if(cartasEnLaMesa.size() == 2){
+            terminarMano();
+        }
+        if(validarSiLaRondaTermino()){
+            terminarRonda();
+        }
 
     }
 
-    private boolean validarSiYaTiroCarta(Usuario usuario) {
-        for (int i = 0; i < manoDelJugador.size(); i++) {
-           if( manoDelJugador.get(i).getJugador() == usuario) return true;
+    //-------------- RONDA --------------
+    public void terminarRonda(){
+        calcularGanadorRonda();
+        manoDelJugador.clear();
+        repartir();
+    }
+
+    private void calcularGanadorRonda() {
+        List<Long> usuariosGanadores = new ArrayList<>();
+
+        for(Jugada jugada : jugadasDeLaRonda){
+            if(jugada.getJugadaGanadora()){
+                if(usuariosGanadores.contains(jugada.getJugador())) {
+                    ganador = jugada.getJugador();
+                    break;
+                };
+                usuariosGanadores.add(jugada.getJugador());
+            }
         }
+    }
+
+    public boolean validarSiLaRondaTermino() {
+        List<Long> usuariosGanadores = new ArrayList<>();
+
+        for(Jugada jugada : jugadasDeLaRonda){
+            if(jugada.getJugadaGanadora()){
+                if(usuariosGanadores.contains(jugada.getJugador())) return true;
+                usuariosGanadores.add(jugada.getJugador());
+            }
+        }
+
         return false;
     }
 
-    private boolean validarSiTerminoMano() {
-        return cartasEnLaMesa.size() == jugadores.size() && !manoDelJugador.isEmpty();
-    };
 
-    public Jugada terminarMano(){
-        Jugada jugadaGanadora = calcularGanador();
-        //manoDelJugador.clear();
-        //ordenarJugadores(ganador);
-        jugadaGanadora.setJugadaGanadora(true);
-        return jugadaGanadora;
+    //-------------- MANO --------------
+    public void terminarMano(){
+        calcularGanadorMano();
+        jugadasDeLaRonda.addAll(cartasEnLaMesa);
+        cartasEnLaMesa.clear();
+
+    }
+
+    private void calcularGanadorMano() {
+        Jugada jugada1 = cartasEnLaMesa.get(0);
+        Jugada jugada2 = cartasEnLaMesa.get(1);
+
+        if(jugada1.getCarta().getValor() < jugada2.getCarta().getValor())  jugada2.setJugadaGanadora(true);
+        else jugada1.setJugadaGanadora(true);
+    }
+
+    public List<Carta> getBaraja() {
+        return baraja;
+    }
+
+    public List<Mano> getManosDeLosJugadores() {
+        return manoDelJugador;
+    }
+
+    public List<Jugada> getCartasEnLaMesa() {
+        return cartasEnLaMesa;
+    }
+
+
+    public Jugada obtenerUltimaJugada() {
+        return cartasEnLaMesa.get(cartasEnLaMesa.size()-1);
     }
 
     private void ordenarJugadores(Usuario ganador) {
@@ -77,42 +142,5 @@ public class Ronda {
             jugadores.add(0, ganador);
             jugadores.addAll(subListaAntes);
         }
-    }
-
-    private Jugada calcularGanador() {
-        Jugada jugadaGanadora = cartasEnLaMesa.get(0);
-
-        for (int i = 1; i < cartasEnLaMesa.size(); i++) {
-            if(cartasEnLaMesa.get(i).getCarta().getValor() > jugadaGanadora.getCarta().getValor()){
-                jugadaGanadora = cartasEnLaMesa.get(i);
-            }
-        }
-
-        return jugadaGanadora;
-    }
-
-    public List<Carta> getBaraja() {
-        return baraja;
-    }
-
-    public List<Mano> getManosDeLosJugadores() {
-        return manoDelJugador;
-    }
-
-    public List<Jugada> getCartasEnLaMesa() {
-        return cartasEnLaMesa;
-    }
-
-    public boolean validarSiLaRondaTermino() {
-        return cartasEnLaMesa.size() == jugadores.size() * 3;
-    }
-
-    public Jugada obtenerUltimaJugada() {
-        if (validarSiTerminoMano()) {
-            manoDelJugador.clear();
-           return terminarMano();
-
-        }
-        return cartasEnLaMesa.get(cartasEnLaMesa.size()-1);
     }
 }

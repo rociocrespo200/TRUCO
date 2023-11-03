@@ -85,3 +85,53 @@ INSERT INTO Usuario (nombre, apellido, email, username, password,rol,activo) VAL
 # 	('10', '4', '5', 'basto10.png'),
 # 	('11', '4', '6', 'basto11.png'),
 # 	('12', '4', '7', 'basto12.png');
+
+CREATE TABLE IF NOT EXISTS Evento (
+	id INT PRIMARY KEY  auto_increment,
+    nombre VARCHAR(100),
+    quiero BOOL,
+    valor int
+);
+
+-- INSERT INTO Evento (nombre, quiero, valor) VALUES 
+-- ('TRUCO', true, 2),
+-- ('TRUCO', false, 1),
+
+-- ('RETRUCO', true, 3),
+-- ('RETRUCO', false, 2),
+
+-- ('VALE_CUATRO', true, 4),
+-- ('VALE_CUATRO', false, 3),
+
+-- ('ENVIDO', true, 2),
+-- ('ENVIDO', false, 1),
+
+-- ('REAL_ENVIDO', true, 3),
+-- ('REAL_ENVIDO', false, 1),
+
+-- ('FALTA_ENVIDO', true, 111),
+-- ('FALTA_ENVIDO', false, 1),
+
+-- ('ENVIDO REAL_ENVIDO', true, 5),
+-- ('ENVIDO REAL_ENVIDO', false, 2),
+
+-- ('ENVIDO FALTA_ENVIDO', true, 111),
+-- ('ENVIDO FALTA_ENVIDO', false, 2),
+
+-- ('REAL_ENVIDO FALTA_ENVIDO', true, 111),
+-- ('REAL_ENVIDO FALTA_ENVIDO', false, 3),
+
+-- ('ENVIDO REAL_ENVIDO FALTA_ENVIDO', true, 111),
+-- ('ENVIDO REAL_ENVIDO FALTA_ENVIDO', false, 5),
+
+-- ('ENVIDO ENVIDO_ENVIDO', true, 4),
+-- ('ENVIDO ENVIDO_ENVIDO', false, 2),
+
+-- ('ENVIDO ENVIDO_ENVIDO REAL_ENVIDO', true, 7),
+-- ('ENVIDO ENVIDO_ENVIDO REAL_ENVIDO', false, 4),
+
+-- ('ENVIDO ENVIDO_ENVIDO FALTA_ENVIDO', true, 111),
+-- ('ENVIDO ENVIDO_ENVIDO FALTA_ENVIDO', false, 4),
+
+-- ('ENVIDO ENVIDO_ENVIDO REAL_ENVIDO FALTA_ENVIDO', true, 111),
+-- ('ENVIDO ENVIDO_ENVIDO REAL_ENVIDO FALTA_ENVIDO', false, 7);

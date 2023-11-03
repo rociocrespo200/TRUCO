@@ -64,60 +64,69 @@ stompClient.onStompError = (frame) => {
 
 stompClient.activate();
 
+let jugadasDeLaRonda = [];
 function moveImage(contenedor, imageUrl, idUsuario, imageNumber) {
     sessionStorage.setItem('usuarioSession', JSON.stringify(idUsuario));
 
-    var contenedor = document.getElementById(contenedor);
-    var jugadaMia = document.getElementById("jugada_mia");
-    jugadaMia.setAttribute("src", imageUrl);
+    if(jugadasDeLaRonda.length === 0 || jugadasDeLaRonda[jugadasDeLaRonda.length - 1].obj.jugador !== idUsuario){
+        var contenedor = document.getElementById(contenedor);
+        var jugadaMia = document.getElementById("jugada_mia");
+        jugadaMia.setAttribute("src", imageUrl);
 
 
-    stompClient.publish({
-        destination: "/app/chat",
-        body: JSON.stringify({message: imageUrl, usuarioId: idUsuario})
-    });
+        stompClient.publish({
+            destination: "/app/chat",
+            body: JSON.stringify({message: imageUrl, usuarioId: idUsuario})
+        });
 
-    contenedor.style.display = "none";
+        contenedor.style.display = "none";
 
-    // Datos de la jugada
-    var jugada = {
-        carta: imageNumber,
-        jugador: idUsuario
-    };
-
-
-
-    // Crear una solicitud POST utilizando AJAX - JUGADA
-    var xhr = new XMLHttpRequest();
-    var url = "http://localhost:8080/spring/partida"; // La URL a la que estás haciendo la solicitud POST
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-
-    var data = JSON.stringify(jugada);
-
-    xhr.onload = function () {
-        console.log("XHR status:", xhr.status);
-        console.log("Response:", xhr.responseText); // Verifica la respuesta exacta del servidor
-
-        if (xhr.status === 200) {
-            try {
-                var response = JSON.parse(xhr.responseText);
-                console.log("Respuesta:", response);
-                console.log(typeof response);
-                // Realiza acciones adicionales según la respuesta recibida
-            } catch (e) {
-                console.error("No se pudo analizar la respuesta como JSON. Error:" + e);
+        let jugada = {
+            tipo: "jugada",
+            obj: {
+                carta: imageNumber,
+                jugador: idUsuario
             }
-        } else {
-            console.error("Hubo un problema al enviar la jugada. Estado de la respuesta:", xhr.status);
-        }
-    };
+        };
+        jugadasDeLaRonda.push(jugada);
 
-    xhr.onerror = function () {
-        console.error("Error de red al enviar la solicitud.");
-    };
+        // Crear una solicitud POST utilizando AJAX - JUGADA
+        var xhr = new XMLHttpRequest();
+        var url = "http://localhost:8080/spring/partida"; // La URL a la que estás haciendo la solicitud POST
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
-    xhr.send(data);
+        var data = JSON.stringify(jugada);
+
+        xhr.onload = function () {
+            console.log("XHR status:", xhr.status);
+            console.log("Response:", xhr.responseText); // Verifica la respuesta exacta del servidor
+
+            if (xhr.status === 200) {
+                try {
+                    var response = JSON.parse(xhr.responseText);
+                    console.log("Respuesta:", response);
+                    console.log(typeof response);
+                    // Realiza acciones adicionales según la respuesta recibida
+                } catch (e) {
+                    console.error("No se pudo analizar la respuesta como JSON. Error:" + e);
+                }
+            } else {
+                console.error("Hubo un problema al enviar la jugada. Estado de la respuesta:", xhr.status);
+            }
+        };
+
+        xhr.onerror = function () {
+            console.error("Error de red al enviar la solicitud.");
+        };
+
+        xhr.send(data);
+
+
+    }else {
+        console.log("No es tu turno");
+        //mostrar div de que no es su turno
+    }
 }
 
 

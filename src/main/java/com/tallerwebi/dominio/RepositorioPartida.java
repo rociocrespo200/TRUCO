@@ -20,4 +20,6 @@ public interface RepositorioPartida {
     Jugada obtenerUltimaJugada();
 
     List<Usuario> obtenerJugadoresEnLaPartida();
+
+    boolean validarSiTerminoRonda();
 }

@@ -23,7 +23,7 @@ public class HibernateConfig {
         //se debe buscar el connection string para el motor que se elija
         dataSource.setUrl("jdbc:mysql://localhost:3306/data");
         dataSource.setUsername("root");
-        dataSource.setPassword("");
+        dataSource.setPassword("46521541");
         return dataSource;
     }
 

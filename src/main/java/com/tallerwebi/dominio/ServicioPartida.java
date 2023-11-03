@@ -52,4 +52,8 @@ public class ServicioPartida {
     public List<Usuario>  obtenerJugadoresEnLaPartida() {
         return repositorioPartida.obtenerJugadoresEnLaPartida();
     }
+
+    public boolean validarSiTerminoRonda() {
+        return repositorioPartida.validarSiTerminoRonda();
+    }
 }
