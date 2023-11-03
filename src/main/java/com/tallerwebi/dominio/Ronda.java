@@ -52,15 +52,16 @@ public class Ronda {
 
         if(cartasEnLaMesa.isEmpty() || obtenerUltimaJugada().getJugador() != usuario.getId()){
             cartasEnLaMesa.add(new Jugada(usuario.getId(), carta));
+            jugadasDeLaRonda.add(new Jugada(usuario.getId(), carta));
         }
 
 
-//        if(cartasEnLaMesa.size() == 2){
-//            terminarMano();
-//        }
-//        if(validarSiLaRondaTermino()){
-//            terminarRonda();
-//        }
+        if(cartasEnLaMesa.size() == 2){
+            terminarMano();
+        }
+        if(validarSiLaRondaTermino()){
+            terminarRonda();
+        }
 
     }
 
@@ -78,6 +79,7 @@ public class Ronda {
             if(jugada.getJugadaGanadora()){
                 if(usuariosGanadores.contains(jugada.getJugador())) {
                     ganador = jugada.getJugador();
+                    asignarPuntosDeRonda();
                     break;
                 };
                 usuariosGanadores.add(jugada.getJugador());
@@ -85,7 +87,16 @@ public class Ronda {
         }
     }
 
-    public boolean validarSiLaRondaTermino() {
+    private void asignarPuntosDeRonda() {
+        for (Equipo equipo : equipos) {
+            if(equipo.buscarJugador(ganador) != null){
+                //si existe un evento de tipo truco obtener el puntaje y pasarsslo por parametos
+                equipo.sumarPuntos(1);
+            }
+        }
+    }
+
+    public boolean validarSiLaRondaTermino2() {
         List<Long> usuariosGanadores = new ArrayList<>();
 
         for(Jugada jugada : jugadasDeLaRonda){
@@ -98,11 +109,14 @@ public class Ronda {
         return false;
     }
 
+    public boolean validarSiLaRondaTermino() {
+        return jugadasDeLaRonda.size() == 6;
+    }
+
 
     //-------------- MANO --------------
     public void terminarMano(){
         calcularGanadorMano();
-        jugadasDeLaRonda.addAll(cartasEnLaMesa);
         cartasEnLaMesa.clear();
 
     }
@@ -145,5 +159,13 @@ public class Ronda {
             jugadores.add(0, ganador);
             jugadores.addAll(subListaAntes);
         }
+    }
+
+    public Long getGanador() {
+        return ganador;
+    }
+
+    public List<Equipo> getEquipos() {
+        return equipos;
     }
 }

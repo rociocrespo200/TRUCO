@@ -19,24 +19,32 @@ stompClient.onConnect = (frame) => {
         }else{
             var mensajeEnviado = JSON.parse(m.body)
             let imageUrl = JSON.parse(m.body).content;
+            if(imageUrl === "RELOAD"){
+                mostrarPopUp("popup3");
+                setTimeout(function() {
+                    ocultarPopUp("popup3")
+                    location.reload();
+                }, 3000);
+            }else{
+                console.log("----------------Contenido --------------")
+                console.log(mensajeEnviado);
+                console.log("Usuario que envio = " + mensajeEnviado.idUsuario);
 
-            console.log("----------------Contenido --------------")
-            console.log(mensajeEnviado);
-            console.log("Usuario que envio = " + mensajeEnviado.idUsuario);
-
-            const usuarioGuardado = sessionStorage.getItem('usuarioSession');
+                const usuarioGuardado = sessionStorage.getItem('usuarioSession');
 
 
-            // Convierte la cadena JSON de vuelta a un objeto.
-            const usuario = JSON.parse(usuarioGuardado);
+                // Convierte la cadena JSON de vuelta a un objeto.
+                const usuario = JSON.parse(usuarioGuardado);
 
-            console.log('Usuario actual:', usuario);
+                console.log('Usuario actual:', usuario);
 
-            if(usuario != mensajeEnviado.idUsuario){
-                // Agrega la imagen al div deseado
-                const tirada_del_jugador = document.getElementById("jugada_oponente");
-                tirada_del_jugador.setAttribute("src", imageUrl);
+                if(usuario !== mensajeEnviado.idUsuario){
+                    // Agrega la imagen al div deseado
+                    const tirada_del_jugador = document.getElementById("jugada_oponente");
+                    tirada_del_jugador.setAttribute("src", imageUrl);
+                }
             }
+
 
         }
 
@@ -54,6 +62,16 @@ stompClient.onStompError = (frame) => {
 
 stompClient.activate();
 
+
+function mostrarPopUp(id) {
+    var popup = document.getElementById(id); // Reemplaza "container" con el id del contenedor deseado
+    popup.style.display = "block";
+}
+
+function ocultarPopUp(id) {
+    var popup = document.getElementById(id); // Reemplaza "container" con el id del contenedor deseado
+    popup.style.display = "none";
+}
 
 function moveImage(contenedor, imageUrl, idUsuario, imageNumber) {
     sessionStorage.setItem('usuarioSession', JSON.stringify(idUsuario));
@@ -86,6 +104,7 @@ function moveImage(contenedor, imageUrl, idUsuario, imageNumber) {
 
             if (xhr.status === 200) {
                 try {
+
                     if(xhr.responseText === ""){
                         console.log("No es tu turno");
                     }else{
@@ -108,6 +127,13 @@ function moveImage(contenedor, imageUrl, idUsuario, imageNumber) {
                 //     console.log(typeof xhr.responseText)
                     // Realiza acciones adicionales según la respuesta recibida
                 } catch (e) {
+                    console.log(typeof xhr.responseText);
+                    if(xhr.responseText.includes("<!DOCTYPE HTML>")){
+                        stompClient.publish({
+                            destination: "/app/chat",
+                            body: JSON.stringify({message: "RELOAD", usuarioId: idUsuario})
+                        });
+                    }
                     console.error("No se pudo analizar la respuesta como JSON. Error:" + e);
                 }
             } else {
@@ -124,5 +150,4 @@ function moveImage(contenedor, imageUrl, idUsuario, imageNumber) {
 
 
 }
-
 

@@ -135,7 +135,7 @@ public class ControladorPartida {
             if(servicioPartida.validarSiTerminoRonda()){
                 ModelAndView model = new ModelAndView();
                 model.setViewName("partida");
-                model.addObject("popupTerminoRonda", "Laronda ya termino");
+                model.addObject("popupTerminoRonda", "La ronda ya termino");
                 return model;
             }
 

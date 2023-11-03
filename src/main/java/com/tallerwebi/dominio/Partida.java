@@ -65,4 +65,24 @@ public class Partida {
     public List<Usuario> obtenerJugadoresEnLaPartida(){
         return jugadores;
     }
+
+    public List<Equipo> getEquipos() {
+        return equipos;
+    }
+
+    public void setEquipos(List<Equipo> equipos) {
+        this.equipos = equipos;
+    }
+
+    public void asignarPuntaje(List<Equipo> equiposRonda) {
+
+        for(Equipo equipo : equipos){
+            for(Equipo equipo2 : equiposRonda){
+                if(equipo.getId() == equipo2.getId()){
+                    int puntos = equipo.getPuntos() + equipo2.getPuntos();
+                    equipo.setPuntos(puntos);
+                }
+            }
+        }
+    }
 }

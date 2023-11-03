@@ -65,7 +65,13 @@ public class RepositorioPartidaImpl implements RepositorioPartida {
 
     @Override
     public boolean validarSiTerminoRonda() {
-        return partida.obtenerRondaActual().validarSiLaRondaTermino();
+        if(partida.obtenerRondaActual().validarSiLaRondaTermino()){
+            Long ganador = partida.obtenerRondaActual().getGanador();
+            partida.asignarPuntaje(partida.obtenerRondaActual().getEquipos());
+            partida.iniciarRonda(obtenerBaraja());
+            return true;
+        }
+        return false;
     }
 
     public List<Carta> obtenerBaraja() {
