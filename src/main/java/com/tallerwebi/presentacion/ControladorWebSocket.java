@@ -22,6 +22,13 @@ public ControladorWebSocket(WebSocketRegistroDeUsuarios registroUsuarios){
         return new MensajeEnviado(mensajeRecibido.getMessage(), mensajeRecibido.getUsuarioId());
     }
 
+//    @MessageMapping("/eventos")
+//    @SendTo("/topic/eventos")
+//    public DatosEvento getEventos(DatosEvento datosEvento,  SimpMessageHeaderAccessor headerAccessor) throws Exception {
+//        return new DatosEvento(datosEvento.getUsuario(), datosEvento.getNombre(), datosEvento.getFinalizado());
+//    }
+
+
     @MessageExceptionHandler
     public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
         String sessionId = event.getSessionId();

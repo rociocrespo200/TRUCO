@@ -1,6 +1,7 @@
 package com.tallerwebi.presentacion;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tallerwebi.dominio.Equipo;
 import com.tallerwebi.dominio.Jugada;
 import com.tallerwebi.dominio.ServicioPartida;
 import com.tallerwebi.dominio.Usuario;
@@ -45,7 +46,7 @@ public class ControladorPartida {
 
         ArrayList<Long> usuariosConectados = new ArrayList<>(registroUsuarios.obtenerUsuariosConectados().values());
 
-        if(registroUsuarios.obtenerCantidadDeUsuarios() == 2){
+        if (registroUsuarios.obtenerCantidadDeUsuarios() == 2) {
             servicioPartida.crearPartida(usuariosConectados);
 
             //Hacer que se envie que ya estan todos los usuarios conectados.
@@ -69,6 +70,7 @@ public class ControladorPartida {
 
         return model;
     }
+
     @RequestMapping("/sala_espera")
     public ModelAndView esperarSala2(@ModelAttribute("cantidadDejugadores") String cantidadJugadores, HttpServletRequest request) {
         ModelAndView model = new ModelAndView();
@@ -83,7 +85,7 @@ public class ControladorPartida {
 
         ArrayList<Long> usuariosConectados = new ArrayList<>(registroUsuarios.obtenerUsuariosConectados().values());
 
-        if(registroUsuarios.obtenerCantidadDeUsuarios() == 2){
+        if (registroUsuarios.obtenerCantidadDeUsuarios() == 2) {
             servicioPartida.crearPartida(usuariosConectados);
             model.addObject("iniciarPartida", true);
         }
@@ -95,24 +97,26 @@ public class ControladorPartida {
     }
 
     @RequestMapping("/partida")
-    public ModelAndView iniciarPartida( HttpServletRequest request){
+    public ModelAndView iniciarPartida(HttpServletRequest request) {
         ModelAndView model = new ModelAndView();
 
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
 
         ArrayList<Long> usuariosConectados = new ArrayList<>(registroUsuarios.obtenerUsuariosConectados().values());
-        ArrayList<Usuario> jugadoresEnLaPartida = new ArrayList<>(servicioPartida.obtenerJugadoresEnLaPartida());
+        ArrayList<Equipo> equipos = new ArrayList<>(servicioPartida.obtenerJugadoresEnLaPartida());
 
 
-        if (registroUsuarios.obtenerCantidadDeUsuarios() == 2){
+        if (registroUsuarios.obtenerCantidadDeUsuarios() == 2) {
 
             model.addObject("carta1", servicioPartida.obtenerManoDelJugador(usuario.getId()).get(0));
             model.addObject("carta2", servicioPartida.obtenerManoDelJugador(usuario.getId()).get(1));
             model.addObject("carta3", servicioPartida.obtenerManoDelJugador(usuario.getId()).get(2));
             model.addObject("usuarioJava", usuario);
 
-            model.addObject("equipo1", jugadoresEnLaPartida.get(0).getUsername());
-            model.addObject("equipo2", jugadoresEnLaPartida.get(1).getUsername());
+            model.addObject("equipo1", equipos.get(0).getJugadores().get(0).getUsername());
+            model.addObject("equipo1_pto", equipos.get(0).getPuntos());
+            model.addObject("equipo2", equipos.get(1).getJugadores().get(0).getUsername());
+            model.addObject("equipo2_pto", equipos.get(1).getPuntos());
             model.setViewName("partida");
             return model;
         }
@@ -132,7 +136,7 @@ public class ControladorPartida {
             DatosJugada jugada = objectMapper.convertValue(objeto.getObj(), DatosJugada.class);
 
             servicioPartida.jugarCarta(jugada.getJugador(), jugada.getCarta());
-            if(servicioPartida.validarSiTerminoRonda()){
+            if (servicioPartida.validarSiTerminoRonda()) {
                 ModelAndView model = new ModelAndView();
                 model.setViewName("partida");
                 model.addObject("popupTerminoRonda", "La ronda ya termino");
@@ -140,50 +144,29 @@ public class ControladorPartida {
             }
 
             Jugada ultimaJugada = servicioPartida.obtenerUltimaJugada();
-            if(ultimaJugada.getCarta().getId() != jugada.getCarta()){
+            if (ultimaJugada.getCarta().getId() != jugada.getCarta()) {
                 return null;
             }
             return servicioPartida.obtenerUltimaJugada();
 
         } else if (tipo.equals("evento")) {
             DatosEvento evento = objectMapper.convertValue(objeto.getObj(), DatosEvento.class);
-            // servicioPartida.registrarEvento(evento);
-            // return servicioPartida.obtenerEventos();
-            return evento.getNombre();
 
-        } else {
-            return "Solicitud no válida";
+            if (evento.getFinalizado()) {
+                //registrar evento en el programa
+                servicioPartida.registrarEvento(evento);
+                return servicioPartida.obtenerUltimoEvento().getNombre();
+            } else {
+                return evento.getNombre();
+            }
+
         }
+
+        return "Solicitud no válida";
+
     }
 
 
-//    @RequestMapping(value = "/partida", consumes = "application/json", method = RequestMethod.POST)
-//    @ResponseBody
-//    public Jugada manejarJugada(@RequestBody DatosJugada jugada) {
-//
-//
-//        servicioPartida.jugarCarta(jugada.getJugador(), jugada.getCarta());
-//
-//        return servicioPartida.obtenerUltimaJugada();
-//    }
-//
-//    @RequestMapping(value = "/eventos", consumes = "application/json", method = RequestMethod.POST)
-//    @ResponseBody
-//    public DatosEvento crearEvento(@RequestBody DatosEvento eventoFinal, HttpServletRequest request) {
-//
-//
-//        return eventoFinal;
-//    }
-//
-//    @RequestMapping("/eventos")
-//    public ModelAndView eventos() {
-//        ModelAndView model = new ModelAndView();
-//
-//        model.setViewName("partida");
-//
-//        return model;
-//    }
-
-
-
 }
+
+

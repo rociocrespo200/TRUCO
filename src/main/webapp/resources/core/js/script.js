@@ -25,7 +25,7 @@ stompClient.onConnect = (frame) => {
                     ocultarPopUp("popup3")
                     location.reload();
                 }, 3000);
-            }else{
+            }else if(imageUrl.includes("png")){
                 console.log("----------------Contenido --------------")
                 console.log(mensajeEnviado);
                 console.log("Usuario que envio = " + mensajeEnviado.idUsuario);
@@ -42,6 +42,16 @@ stompClient.onConnect = (frame) => {
                     // Agrega la imagen al div deseado
                     const tirada_del_jugador = document.getElementById("jugada_oponente");
                     tirada_del_jugador.setAttribute("src", imageUrl);
+                }
+            }else{
+                const usuarioGuardado = sessionStorage.getItem('usuarioSession');
+                const usuario = JSON.parse(usuarioGuardado);
+                if(usuario !== mensajeEnviado.idUsuario){
+                    console.log("---------------- EVENTOS --------------")
+                    console.log(imageUrl);
+                    console.log("Usuario que envio = " + mensajeEnviado.idUsuario);
+
+                    generarMensaje(decodificarEvento(imageUrl), "receptor");
                 }
             }
 
@@ -147,7 +157,6 @@ function moveImage(contenedor, imageUrl, idUsuario, imageNumber) {
 
         xhr.send(data);
 
-
-
 }
 
+//EVENTOS

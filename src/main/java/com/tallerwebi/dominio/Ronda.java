@@ -11,6 +11,8 @@ public class Ronda {
     private List<Carta> baraja; //hay que pasarle la baraja desde la base de datos;
     private List<Mano> manoDelJugador;
 
+    private List<Evento> eventos;
+
     private List<Jugada> cartasEnLaMesa;
     private List<Jugada> jugadasDeLaRonda;
 
@@ -25,6 +27,7 @@ public class Ronda {
         manoDelJugador = new ArrayList<>();
         cartasEnLaMesa = new ArrayList<>();
         jugadasDeLaRonda = new ArrayList<>();
+        eventos = new ArrayList<>();
         //repartir();
     }
 
@@ -125,8 +128,21 @@ public class Ronda {
         Jugada jugada1 = cartasEnLaMesa.get(0);
         Jugada jugada2 = cartasEnLaMesa.get(1);
 
-        if(jugada1.getCarta().getValor() < jugada2.getCarta().getValor())  jugada2.setJugadaGanadora(true);
-        else jugada1.setJugadaGanadora(true);
+        if(jugada1.getCarta().getValor() < jugada2.getCarta().getValor()) {
+            buscarJugada(jugada2).setJugadaGanadora(true);
+        }
+        else{
+            buscarJugada(jugada1).setJugadaGanadora(true);
+        }
+    }
+
+    private Jugada buscarJugada(Jugada jugada2) {
+        for(Jugada jugada : jugadasDeLaRonda){
+            if(jugada.getCarta() == jugada2.getCarta()){
+                return jugada;
+            }
+        }
+        return null;
     }
 
     public List<Carta> getBaraja() {
@@ -143,7 +159,7 @@ public class Ronda {
 
 
     public Jugada obtenerUltimaJugada() {
-        return (cartasEnLaMesa.size() != 1) ? cartasEnLaMesa.get(cartasEnLaMesa.size()-1) : cartasEnLaMesa.get(0);
+        return (jugadasDeLaRonda.size() != 1) ? jugadasDeLaRonda.get(jugadasDeLaRonda.size()-1) : jugadasDeLaRonda.get(0);
     }
 
     private void ordenarJugadores(Usuario ganador) {
@@ -167,5 +183,13 @@ public class Ronda {
 
     public List<Equipo> getEquipos() {
         return equipos;
+    }
+
+    public void registroEvento(Evento evento) {
+        eventos.add(evento);
+    }
+
+    public Evento obtenerUltimoEvento() {
+        return eventos.get(eventos.size()-1);
     }
 }

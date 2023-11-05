@@ -19,22 +19,18 @@
         <span class="span_equipos" th:text="${evento.nombre}"></span>
         <p class="puntos">12</p>
     </div>
-<!--    <div class="equipos" id="equipo3">-->
-<!--        <span class="span_equipos" th:text="${usuarioJava.username}"></span>-->
-<!--        <p class="puntos">usuario actual</p>-->
-<!--    </div>-->
     <div class="equipos" id="equipo1">
         <span class="span_equipos" th:text="${equipo1}"></span>
-        <p class="puntos">10</p>
+        <p class="puntos" th:text="${equipo1_pto}"></p>
     </div>
     <div class="equipos" id="equipo2">
         <span class="span_equipos" th:text="${equipo2}"></span>
-        <p class="puntos">12</p>
+        <p class="puntos" th:text="${equipo2_pto}"></p>
     </div>
 </section>
 
 
-<section class="section_principal">
+<section class="section_principal" id="section_principal">
 
     <div class="mano_oponente" id="mano_oponente">
         <img th:src="@{/assets/cartas/carta_reverso.png}" alt="">
@@ -51,6 +47,16 @@
         <img th:if="${carta2}" id="carta2" th:src="@{/assets/cartas/__${carta2.imagen}__}"  th:onclick="'moveImage(this.id,this.src, ' + ${usuarioJava.id} +  ',' + ${carta2.id}+ ' )'" class="misCartas"/>
         <img th:if="${carta3}" id="carta3" th:src="@{/assets/cartas/__${carta3.imagen}__}"  th:onclick="'moveImage(this.id,this.src, ' + ${usuarioJava.id} +  ',' + ${carta3.id}+ ' )'" class="misCartas"/>
     </div>
+
+
+    <!-- mensaje izquierda -->
+    <div class="receptor" id="receptor" style="display: none">
+
+    </div>
+    <!-- mensaje derecha -->
+    <div class="emisor" id="emisor" style="display: none">
+
+    </div>
 </section>
 
 <div class="popup"  id="popup2" style="display: none" >
@@ -58,7 +64,8 @@
 </div>
 
 <div  class="popup"  id="popup3"  style="display: none" >
-<p>La ronda termino el ganador es: </p>
+    <h1 class="neonText">¡¡ Ronda terminada !!</h1>
+    <p>El ganador es rocioCrespo200</p>
 </div>
 
 
@@ -85,6 +92,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
 <script th:src="@{/js/eventos.js}"></script>
 <script th:src="@{/js/script.js}"></script>
+
 <script th:inline="javascript">
 
     document.getElementById('mostrarPopup').addEventListener('click', function () {

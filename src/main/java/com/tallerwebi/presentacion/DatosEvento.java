@@ -6,15 +6,16 @@ public class DatosEvento {
 
     private Integer usuario;
     private String nombre;
-    private Boolean quiero;
+    private Boolean finalizado;
 
     public DatosEvento(){
 
     }
-    public DatosEvento(Integer usuario, String nombre, Boolean quiero) {
+
+    public DatosEvento(Integer usuario, String nombre, Boolean finalizado) {
         this.usuario = usuario;
         this.nombre = nombre;
-        this.quiero = quiero;
+        this.finalizado = finalizado;
     }
 
     public Integer getUsuario() {
@@ -33,11 +34,11 @@ public class DatosEvento {
         this.nombre = nombre;
     }
 
-    public Boolean getQuiero() {
-        return quiero;
+    public Boolean getFinalizado() {
+        return finalizado;
     }
 
-    public void setQuiero(Boolean quiero) {
-        this.quiero = quiero;
+    public void setFinalizado(Boolean finalizado) {
+        this.finalizado = finalizado;
     }
 }

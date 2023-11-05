@@ -59,15 +59,15 @@ public class RepositorioPartidaImpl implements RepositorioPartida {
     }
 
     @Override
-    public List<Usuario> obtenerJugadoresEnLaPartida() {
-        return partida.obtenerJugadoresEnLaPartida();
+    public List<Equipo> obtenerJugadoresEnLaPartida() {
+        return partida.getEquipos();
     }
 
     @Override
     public boolean validarSiTerminoRonda() {
         if(partida.obtenerRondaActual().validarSiLaRondaTermino()){
-            Long ganador = partida.obtenerRondaActual().getGanador();
-            partida.asignarPuntaje(partida.obtenerRondaActual().getEquipos());
+//            Long ganador = partida.obtenerRondaActual().getGanador();
+//            partida.asignarPuntaje(partida.obtenerRondaActual().getEquipos());
             partida.iniciarRonda(obtenerBaraja());
             return true;
         }
@@ -115,7 +115,19 @@ public class RepositorioPartidaImpl implements RepositorioPartida {
 
 
     public void registrarEvento(DatosEvento evento) {
-        //Evento eventoBD = consulta a la base de datos a partir de evento.getNombre()
-        //partida.obtenerRondaActual().registroEvento(eventoBD);
+        Evento eventoBD = obtenerEvento(evento.getNombre());
+        partida.obtenerRondaActual().registroEvento(eventoBD);
+    }
+
+    @Override
+    public Evento obtenerUltimoEvento() {
+        return partida.obtenerRondaActual().obtenerUltimoEvento();
+    }
+
+    private Evento obtenerEvento(String nombre) {
+        final Session session = sessionFactory.getCurrentSession();
+        return (Evento) session.createCriteria(Evento.class)
+                .add(Restrictions.eq("nombre", nombre))
+                .uniqueResult();
     }
 }

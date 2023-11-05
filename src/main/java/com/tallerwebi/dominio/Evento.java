@@ -11,7 +11,6 @@ public class Evento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String nombre;
-    private boolean quiero;
     private int valor;
 
     // Constructor vacío
@@ -19,9 +18,8 @@ public class Evento {
     }
 
     // Constructor con todos los campos
-    public Evento(String nombre, boolean quiero, int valor) {
+    public Evento(String nombre, int valor) {
         this.nombre = nombre;
-        this.quiero = quiero;
         this.valor = valor;
     }
 
@@ -40,14 +38,6 @@ public class Evento {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public boolean isQuiero() {
-        return quiero;
-    }
-
-    public void setQuiero(boolean quiero) {
-        this.quiero = quiero;
     }
 
     public int getValor() {

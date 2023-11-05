@@ -7,27 +7,36 @@ generarEventos(eventosIniciales);
 function registrarEvento(evento) {
 
     administrarBotones(evento);
-
+    let eventoParaEnviar = null;
 
     if (evento == "QUIERO" || evento == "NO_QUIERO" || evento == "IRSE_AL_MAZO") {
+        eventosRegistrados.push(evento)
         let nombreCompuestoDelEvento = obtenerUltimoEvento();
-        let respuesta = (evento == "QUIERO") ? true : false;
 
 
-        let eventoParaEnviar = {
+        eventoParaEnviar = {
             tipo: "evento",
             obj: {
                 usuario: sessionStorage.getItem('usuarioSession'),
                 nombre: nombreCompuestoDelEvento,
-                quiero: respuesta
+                finalizado: true
+            }
+        };
+        eventosRegistrados = [];
+    } else {
+        eventoParaEnviar = {
+            tipo: "evento",
+            obj: {
+                usuario: sessionStorage.getItem('usuarioSession'),
+                nombre: evento,
+                finalizado: false
             }
 
         };
-        mandarEventoCompletoConAJAX(eventoParaEnviar);
-        eventosRegistrados = [];
-    } else {
         eventosRegistrados.push(evento)
     }
+
+    mandarEventoConAJAX(eventoParaEnviar);
 }
 
 function obtenerUltimoEvento() {
@@ -82,7 +91,7 @@ function decodificarEvento(evento){
     return evento.replace(/_/g, " ");
 }
 
-function mandarEventoCompletoConAJAX(evento){
+function mandarEventoConAJAX(evento){
 
     // Crear una solicitud POST utilizando AJAX - JUGADA
     var xhr = new XMLHttpRequest();
@@ -92,10 +101,14 @@ function mandarEventoCompletoConAJAX(evento){
 
     xhr.onreadystatechange = function() {
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-            // La solicitud ha sido completada y la respuesta del servidor está lista
-            //var respuesta = JSON.parse(this.responseText);
-            // Manejar la respuesta aquí
-            console.log(this.responseText);
+            let evento = this.responseText;
+
+            stompClient.publish({
+                destination: "/app/chat",
+                body: JSON.stringify({message: evento, usuarioId: sessionStorage.getItem('usuarioSession')})
+            });
+
+            console.log(evento);
         }
     };
 
@@ -104,5 +117,15 @@ function mandarEventoCompletoConAJAX(evento){
 }
 
 
+function generarMensaje(evento, id) {
+    var divReceptor = document.getElementById(id);
+    divReceptor.style.display = "block";
+    divReceptor.textContent = 'Quiero '+ evento +' !!';
+
+    setTimeout(function() {
+        divReceptor.style.display = "none";
+    }, 5000);
+
+}
 
 
