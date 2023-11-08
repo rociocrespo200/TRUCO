@@ -4,16 +4,19 @@ var eventosRegistradosConRespuestas = [];
 let eventosIniciales = ['TRUCO', 'ENVIDO', 'REAL_ENVIDO', 'FALTA_ENVIDO', 'IRSE_AL_MAZO'];
 generarEventos(eventosIniciales);
 
+let eventoEnProceso = false;
 function registrarEvento(evento) {
 
+    eventoEnProceso = true;
     administrarBotones(evento);
+    generarMensaje(evento, "emisor")
     let eventoParaEnviar = null;
 
     if (evento == "QUIERO" || evento == "NO_QUIERO" || evento == "IRSE_AL_MAZO") {
         eventosRegistrados.push(evento)
         let nombreCompuestoDelEvento = obtenerUltimoEvento();
 
-
+        eventoEnProceso = false;
         eventoParaEnviar = {
             tipo: "evento",
             obj: {
@@ -36,6 +39,9 @@ function registrarEvento(evento) {
         eventosRegistrados.push(evento)
     }
 
+    if(eventoEnProceso == false){
+        //ocultame el div que bloquea la pantalla;
+    }
     mandarEventoConAJAX(eventoParaEnviar);
 }
 

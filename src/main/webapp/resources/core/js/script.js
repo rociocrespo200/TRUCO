@@ -19,6 +19,7 @@ stompClient.onConnect = (frame) => {
         }else{
             var mensajeEnviado = JSON.parse(m.body)
             let imageUrl = JSON.parse(m.body).content;
+
             if(imageUrl === "RELOAD"){
                 mostrarPopUp("popup3");
                 setTimeout(function() {
@@ -44,6 +45,7 @@ stompClient.onConnect = (frame) => {
                     tirada_del_jugador.setAttribute("src", imageUrl);
                 }
             }else{
+
                 const usuarioGuardado = sessionStorage.getItem('usuarioSession');
                 const usuario = JSON.parse(usuarioGuardado);
                 if(usuario !== mensajeEnviado.idUsuario){
