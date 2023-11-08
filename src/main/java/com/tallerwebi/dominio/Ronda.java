@@ -13,6 +13,7 @@ public class Ronda {
 
     private List<Evento> eventos;
 
+    private List<String> eventosTemp;// eventosTemp[0] = "TRUCO" eventosTemp[1] = "QUIERO"
     private List<Jugada> cartasEnLaMesa;
     private List<Jugada> jugadasDeLaRonda;
 
@@ -27,6 +28,7 @@ public class Ronda {
         manoDelJugador = new ArrayList<>();
         cartasEnLaMesa = new ArrayList<>();
         jugadasDeLaRonda = new ArrayList<>();
+        eventosTemp = new ArrayList<>();
         eventos = new ArrayList<>();
         //repartir();
     }
@@ -189,7 +191,19 @@ public class Ronda {
         eventos.add(evento);
     }
 
-    public Evento obtenerUltimoEvento() {
-        return eventos.get(eventos.size()-1);
+    public String obtenerUltimoEvento() {
+        return eventosTemp.get(eventosTemp.size()-1);
+    }
+
+    public void guardarListaEvento(String nombreEvento) {
+        eventosTemp.add(nombreEvento);
+    }
+
+    public List<String> getEventosTemp() {
+        return eventosTemp;
+    }
+
+    public void setEventosTemp(List<String> eventosTemp) {
+        this.eventosTemp = eventosTemp;
     }
 }

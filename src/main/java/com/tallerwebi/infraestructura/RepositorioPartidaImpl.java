@@ -114,17 +114,37 @@ public class RepositorioPartidaImpl implements RepositorioPartida {
     }
 
 
-    public void registrarEvento(DatosEvento evento) {
-        Evento eventoBD = obtenerEvento(evento.getNombre());
+    public void registrarEvento() {
+        List<String> eventos = partida.obtenerRondaActual().getEventosTemp();
+        String eventoConcatenado = concatenarEventos(eventos);
+        Evento evento = obtenerEvento(eventoConcatenado);
         //obtenerGanadorDelEvento(eventoBD.getNombre)
         //obtengo el equipo de la ronda (evento.getUsuario)
         // setPuntos(eventoBD.getValor)
-        partida.obtenerRondaActual().registroEvento(eventoBD);
+        partida.obtenerRondaActual().registroEvento(evento);
+    }
+
+    private String concatenarEventos(List<String> eventos) {
+        StringBuilder nombreCompuestoDelEvento = new StringBuilder();
+        for (int i = 0; i < eventos.size(); i++) {
+            if (i != eventos.size() - 1) {
+                nombreCompuestoDelEvento.append(eventos.get(i)).append(" ");
+            } else {
+                nombreCompuestoDelEvento.append(eventos.get(i));
+            }
+        }
+        return nombreCompuestoDelEvento.toString();
+
     }
 
     @Override
-    public Evento obtenerUltimoEvento() {
+    public String obtenerUltimoEvento() {
         return partida.obtenerRondaActual().obtenerUltimoEvento();
+    }
+
+    @Override
+    public void guardarListaEvento(DatosEvento evento) {
+        partida.obtenerRondaActual().guardarListaEvento(evento.getNombre());
     }
 
     private Evento obtenerEvento(String nombre) {

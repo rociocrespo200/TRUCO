@@ -39,6 +39,7 @@ stompClient.onConnect = (frame) => {
 
                 console.log('Usuario actual:', usuario);
 
+                document.getElementById("bloquear").style.display = "none";
                 if(usuario !== mensajeEnviado.idUsuario){
                     // Agrega la imagen al div deseado
                     const tirada_del_jugador = document.getElementById("jugada_oponente");
@@ -51,9 +52,24 @@ stompClient.onConnect = (frame) => {
                 if(usuario !== mensajeEnviado.idUsuario){
                     console.log("---------------- EVENTOS --------------")
                     console.log(imageUrl);
+                    console.log(typeof imageUrl);
                     console.log("Usuario que envio = " + mensajeEnviado.idUsuario);
 
+                    administrarBotones(imageUrl);
                     generarMensaje(decodificarEvento(imageUrl), "receptor");
+                    document.getElementById("bloquear").style.display = "none";
+                    document.getElementById("bloquear2").style.display = "flex";
+                    document.getElementById("emisor").style.display = "none";
+
+                }
+
+                if(imageUrl === "QUIERO" || imageUrl === "NO_QUIERO" || imageUrl === "IRSE_AL_MAZO"){
+                    setTimeout(function() {
+                        document.getElementById("bloquear").style.display = "none";
+                        document.getElementById("bloquear2").style.display = "none";
+                        document.getElementById("emisor").style.display = "none";
+                        document.getElementById("receptor").style.display = "none";
+                    }, 2000);
                 }
             }
 

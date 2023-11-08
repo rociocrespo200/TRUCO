@@ -151,15 +151,13 @@ public class ControladorPartida {
 
         } else if (tipo.equals("evento")) {
             DatosEvento evento = objectMapper.convertValue(objeto.getObj(), DatosEvento.class);
+            servicioPartida.guardarListaEvento(evento);
 
             if (evento.getFinalizado()) {
-                //registrar evento en el programa
-                servicioPartida.registrarEvento(evento);
-                return servicioPartida.obtenerUltimoEvento().getNombre();
-            } else {
+                servicioPartida.registrarEvento();
                 return evento.getNombre();
             }
-
+            return servicioPartida.obtenerUltimoEvento();
         }
 
         return "Solicitud no válida";

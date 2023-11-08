@@ -58,8 +58,12 @@ public class ServicioPartida {
         return repositorioPartida.validarSiTerminoRonda();
     }
 
-    public void registrarEvento(DatosEvento evento) { repositorioPartida.registrarEvento(evento);
+    public void registrarEvento() { repositorioPartida.registrarEvento();
     }
 
-    public Evento obtenerUltimoEvento() {return repositorioPartida.obtenerUltimoEvento();}
+    public String obtenerUltimoEvento() {return repositorioPartida.obtenerUltimoEvento();}
+
+    public void guardarListaEvento(DatosEvento evento) { repositorioPartida.guardarListaEvento(evento);
+
+    }
 }

@@ -25,7 +25,9 @@ public interface RepositorioPartida {
 
     boolean validarSiTerminoRonda();
 
-    void registrarEvento(DatosEvento evento);
+    void registrarEvento();
 
-    Evento obtenerUltimoEvento();
+    String obtenerUltimoEvento();
+
+    void guardarListaEvento(DatosEvento evento);
 }
