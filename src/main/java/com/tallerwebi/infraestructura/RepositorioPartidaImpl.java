@@ -116,6 +116,9 @@ public class RepositorioPartidaImpl implements RepositorioPartida {
 
     public void registrarEvento(DatosEvento evento) {
         Evento eventoBD = obtenerEvento(evento.getNombre());
+        //obtenerGanadorDelEvento(eventoBD.getNombre)
+        //obtengo el equipo de la ronda (evento.getUsuario)
+        // setPuntos(eventoBD.getValor)
         partida.obtenerRondaActual().registroEvento(eventoBD);
     }
 
