@@ -50,8 +50,57 @@ public class Ronda {
                 cartas.remove(cartaAleatoria);
             }
             manoDelJugador.add(new Mano (jugadores.get(i), cartasAleatorias));
+            asignarTanto(jugadores.get(i),0);
+            calculartanto(jugadores.get(i),cartasAleatorias);
         }
     }
+
+    private void calculartanto(Usuario usuario, List<Carta> cartasAleatorias) {
+        Integer ValordeTanto=0;
+        Integer TantoMasAlto=0;
+        for (Carta carta:cartasAleatorias){
+            for (Carta carta2:cartasAleatorias){
+                if (carta!=carta2){
+                    if (carta.getPalo()==carta2.getPalo()){
+
+                        if (carta.getNro()>=10){
+                            ValordeTanto+=10;
+                        }
+                        if (carta2.getNro()>=10){
+                            ValordeTanto+=10;
+                        }
+                        if (carta.getNro()<10){
+                            ValordeTanto+=carta.getNro()+10;
+                        }
+                        if (carta2.getNro()<10){
+                            ValordeTanto+=carta2.getNro()+10;
+                        }
+                    }
+                    if (carta.getPalo()!=carta2.getPalo()){
+                        if (carta.getNro()>carta2.getNro()){
+                            ValordeTanto=carta.getNro();
+                        }else {
+                            ValordeTanto=carta2.getNro();
+                        }
+
+                    }
+                }
+
+                if (TantoMasAlto<ValordeTanto) {
+                    TantoMasAlto = ValordeTanto;
+                }
+                ValordeTanto=0;
+            }
+        }
+
+        asignarTanto(usuario,TantoMasAlto);
+
+    }
+
+    private void asignarTanto(Usuario usuario, Integer tantoMasAlto) {
+        usuario.setTanto(tantoMasAlto);
+    }
+
 
     public void jugarCarta(Usuario usuario, Carta carta){
 

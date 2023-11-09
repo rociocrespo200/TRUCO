@@ -66,8 +66,8 @@ public class RepositorioPartidaImpl implements RepositorioPartida {
     @Override
     public boolean validarSiTerminoRonda() {
         if(partida.obtenerRondaActual().validarSiLaRondaTermino()){
-//            Long ganador = partida.obtenerRondaActual().getGanador();
-//            partida.asignarPuntaje(partida.obtenerRondaActual().getEquipos());
+        //  Long ganador = partida.obtenerRondaActual().getGanador();
+        //  partida.asignarPuntaje(partida.obtenerRondaActual().getEquipos());
             partida.iniciarRonda(obtenerBaraja());
             return true;
         }
@@ -123,6 +123,8 @@ public class RepositorioPartidaImpl implements RepositorioPartida {
         // setPuntos(eventoBD.getValor)
         partida.obtenerRondaActual().registroEvento(evento);
     }
+
+
 
     private String concatenarEventos(List<String> eventos) {
         StringBuilder nombreCompuestoDelEvento = new StringBuilder();
