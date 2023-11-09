@@ -123,6 +123,7 @@ public class Ronda {
     public void terminarRonda(){
         calcularGanadorRonda();
         manoDelJugador.clear();
+        eventos.clear();
         repartir();
     }
 
@@ -145,9 +146,28 @@ public class Ronda {
         for (Equipo equipo : equipos) {
             if(equipo.buscarJugador(ganador) != null){
                 //si existe un evento de tipo truco obtener el puntaje y pasarsslo por parametos
-                equipo.sumarPuntos(1);
+                    equipo.sumarPuntos(Secantoalguntruco());
+
+                }
+                equipo.sumarPuntos(Secantoalguntruco());
             }
         }
+
+
+    private int Secantoalguntruco() {
+        for (Evento evento: eventos){
+            if (evento.getNombre().contains("VALE_CUATRO")){
+                return 4;
+            }
+            if (evento.getNombre().contains("RETRUCO")){
+                return 3;
+
+            }
+            if (evento.getNombre().contains("TRUCO")){
+                return 2;
+            }
+        }
+        return 1;
     }
 
     public boolean validarSiLaRondaTermino2() {

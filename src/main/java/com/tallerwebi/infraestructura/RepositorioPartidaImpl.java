@@ -114,16 +114,44 @@ public class RepositorioPartidaImpl implements RepositorioPartida {
     }
 
 
-    public void registrarEvento() {
+    public void registrarEvento(DatosEvento eventoDB) {
+
+
         List<String> eventos = partida.obtenerRondaActual().getEventosTemp();
         String eventoConcatenado = concatenarEventos(eventos);
         Evento evento = obtenerEvento(eventoConcatenado);
-        //obtenerGanadorDelEvento(eventoBD.getNombre)
-        //obtengo el equipo de la ronda (evento.getUsuario)
-        // setPuntos(eventoBD.getValor)
-        partida.obtenerRondaActual().registroEvento(evento);
+
+
+        if (eventoDB.getFinalizado()){
+            partida.obtenerRondaActual().registroEvento(evento);
+        }else{
+            CalcularAsignaciondePuntosCasosNegativos(eventoDB);
+        }
+
+        if (eventoDB.getNombre().contains("IRSE_AL_MAZO")){
+            CalcularAsignaciondePuntosCasosNegativos(eventoDB);
+        }
+
+
     }
 
+    private void CalcularAsignaciondePuntosCasosNegativos(DatosEvento eventoDB) {
+        if (AqueEquipoPertenece(partida.getEquipos().get(0),eventoDB)){
+            partida.asignarPuntajeaunequipo(partida.getEquipos().get(0),obtenerEvento(eventoDB.getNombre()).getValor());
+        }
+        if (AqueEquipoPertenece(partida.getEquipos().get(1),eventoDB)){
+            partida.asignarPuntajeaunequipo(partida.getEquipos().get(1),obtenerEvento(eventoDB.getNombre()).getValor());
+
+        }
+    }
+
+    private boolean AqueEquipoPertenece(Equipo equipo, DatosEvento eventoDB) {
+        if (equipo.getJugadores().get(0).getId().equals(eventoDB.getUsuario())){
+            return true;
+        }
+
+        return false;
+    }
 
 
     private String concatenarEventos(List<String> eventos) {

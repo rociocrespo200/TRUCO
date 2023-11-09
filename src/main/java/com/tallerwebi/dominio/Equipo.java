@@ -39,7 +39,7 @@ public class Equipo {
     }
 
     public void setPuntos(int puntos) {
-        this.puntos = puntos;
+        this.puntos += puntos;
     }
 
     public void setJugadores(List<Usuario> jugadores) {

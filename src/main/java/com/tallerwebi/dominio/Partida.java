@@ -85,4 +85,7 @@ public class Partida {
             }
         }
     }
+    public void asignarPuntajeaunequipo(Equipo equipo, Integer puntos){
+        equipo.setPuntos(puntos);
+    }
 }
