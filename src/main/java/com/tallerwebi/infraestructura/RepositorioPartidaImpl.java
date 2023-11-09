@@ -120,8 +120,9 @@ public class RepositorioPartidaImpl implements RepositorioPartida {
         List<String> eventos = partida.obtenerRondaActual().getEventosTemp();
         String eventoConcatenado = concatenarEventos(eventos);
         Evento evento = obtenerEvento(eventoConcatenado);
+        partida.obtenerRondaActual().registroEvento(evento,eventoDB.getUsuario());
 
-
+/*
         if (eventoDB.getFinalizado()){
             partida.obtenerRondaActual().registroEvento(evento);
         }else{
@@ -130,16 +131,16 @@ public class RepositorioPartidaImpl implements RepositorioPartida {
 
         if (eventoDB.getNombre().contains("IRSE_AL_MAZO")){
             CalcularAsignaciondePuntosCasosNegativos(eventoDB);
-        }
+        }*/
 
 
     }
 
     private void CalcularAsignaciondePuntosCasosNegativos(DatosEvento eventoDB) {
-        if (AqueEquipoPertenece(partida.getEquipos().get(0),eventoDB)){
+        if (!AqueEquipoPertenece(partida.getEquipos().get(0),eventoDB)){
             partida.asignarPuntajeaunequipo(partida.getEquipos().get(0),obtenerEvento(eventoDB.getNombre()).getValor());
         }
-        if (AqueEquipoPertenece(partida.getEquipos().get(1),eventoDB)){
+        if (!AqueEquipoPertenece(partida.getEquipos().get(1),eventoDB)){
             partida.asignarPuntajeaunequipo(partida.getEquipos().get(1),obtenerEvento(eventoDB.getNombre()).getValor());
 
         }

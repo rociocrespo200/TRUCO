@@ -154,7 +154,7 @@ public class ControladorPartida {
             servicioPartida.guardarListaEvento(evento);
 
             if (evento.getFinalizado()) {
-                servicioPartida.registrarEvento();
+                servicioPartida.registrarEvento(evento);
                 return evento.getNombre();
             }
             return servicioPartida.obtenerUltimoEvento();

@@ -11,11 +11,16 @@ public class Equipo {
 
     private List<Usuario> jugadores;
 
+
+
+    private List<Evento> eventos;
+
     public Equipo(int id, Usuario jugador) {
         this.id = id;
         this.puntos = 0;
         jugadores = new ArrayList<>();
         jugadores.add(jugador);
+        eventos = new ArrayList<>();
     }
 
 
@@ -32,6 +37,18 @@ public class Equipo {
         return jugadores;
 
 
+    }
+    public List<Evento> getEventos() {
+        return eventos;
+    }
+
+    public void setEventos(List<Evento> eventos) {
+        this.eventos = eventos;
+    }
+
+
+    public void addEventos(Evento evento) {
+        this.eventos.add(evento) ;
     }
 
     public void setId(int id) {

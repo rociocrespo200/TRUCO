@@ -6,8 +6,6 @@ public class Mano {
     private Usuario jugador;
     private List<Carta> cartasEnLaMano;
 
-
-
     private Integer tanto;
     public Mano(Usuario jugador, List<Carta> cartasEnLaMano , Integer tanto) {
         this.cartasEnLaMano = cartasEnLaMano;

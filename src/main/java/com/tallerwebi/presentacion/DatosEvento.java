@@ -4,7 +4,7 @@ import com.tallerwebi.dominio.Usuario;
 
 public class DatosEvento {
 
-    private Integer usuario;
+    private Long usuario;
     private String nombre;
     private Boolean finalizado;
 
@@ -12,17 +12,17 @@ public class DatosEvento {
 
     }
 
-    public DatosEvento(Integer usuario, String nombre, Boolean finalizado) {
+    public DatosEvento(Long usuario, String nombre, Boolean finalizado) {
         this.usuario = usuario;
         this.nombre = nombre;
         this.finalizado = finalizado;
     }
 
-    public Integer getUsuario() {
+    public Long getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Integer usuario) {
+    public void setUsuario(Long usuario) {
         this.usuario = usuario;
     }
 

@@ -123,7 +123,6 @@ public class Ronda {
     public void terminarRonda(){
         calcularGanadorRonda();
         manoDelJugador.clear();
-        eventos.clear();
         repartir();
     }
 
@@ -145,29 +144,44 @@ public class Ronda {
     private void asignarPuntosDeRonda() {
         for (Equipo equipo : equipos) {
             if(equipo.buscarJugador(ganador) != null){
+                if(validarSiSeCantoUnEvento("TRUCO")!=null){
                 //si existe un evento de tipo truco obtener el puntaje y pasarsslo por parametos
-                    equipo.sumarPuntos(Secantoalguntruco());
-
+                    equipo.sumarPuntos(validarSiSeCantoUnEvento("TRUCO").getValor());
                 }
-                equipo.sumarPuntos(Secantoalguntruco());
+
             }
+
         }
 
+        if(validarSiSeCantoUnEvento("ENVIDO")!=null) {
+            if(manoDelJugador.get(0).getTanto()>=manoDelJugador.get(1).getTanto()) {
+                obtenerEquipoDeUnJugador(manoDelJugador.get(0).getJugador().getId()).sumarPuntos(validarSiSeCantoUnEvento("ENVIDO").getValor());
+            }else{
+                obtenerEquipoContrario(manoDelJugador.get(0).getJugador().getId()).sumarPuntos(validarSiSeCantoUnEvento("ENVIDO").getValor());
+            }
 
-    private int Secantoalguntruco() {
+        }
+
+    }
+
+    private void cantaronEnvido(Evento evento) {
+        if(evento.getNombre().contains("QUIERO")){
+
+        }
+        else{
+
+        }
+    }
+
+
+    private Evento validarSiSeCantoUnEvento(String nombre) {
         for (Evento evento: eventos){
-            if (evento.getNombre().contains("VALE_CUATRO")){
-                return 4;
-            }
-            if (evento.getNombre().contains("RETRUCO")){
-                return 3;
 
-            }
-            if (evento.getNombre().contains("TRUCO")){
-                return 2;
+            if (evento.getNombre().contains(nombre)){
+                return evento;
             }
         }
-        return 1;
+        return null;
     }
 
     public boolean validarSiLaRondaTermino2() {
@@ -256,8 +270,32 @@ public class Ronda {
         return equipos;
     }
 
-    public void registroEvento(Evento evento) {
+    public void registroEvento(Evento evento, Long usuario) {
+    if (evento.getNombre().contains("QUIERO")){
         eventos.add(evento);
+    }else{
+        obtenerEquipoContrario(usuario).setPuntos(evento.getValor());
+    }
+    }
+
+    private Equipo obtenerEquipoDeUnJugador(Long usuario) {
+
+        for (Equipo equipo:equipos){
+            if(equipo.getJugadores().get(0).getId().equals(usuario)){
+                return equipo;
+            }
+        }
+        return null;
+    }
+
+    private Equipo obtenerEquipoContrario(Long usuario) {
+
+        for (Equipo equipo:equipos){
+            if(!equipo.getJugadores().get(0).getId().equals(usuario)){
+                return equipo;
+            }
+        }
+        return null;
     }
 
     public String obtenerUltimoEvento() {
