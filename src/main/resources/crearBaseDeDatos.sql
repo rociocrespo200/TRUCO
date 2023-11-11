@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS Sala (
 cantidadMAximaJugadores INT,
 Cantidad_de_jugadores_en_sala INT
 );
-
+DELETE from Sala;
 
 
 INSERT INTO Palo (palo) VALUES
@@ -42,8 +42,8 @@ CREATE TABLE Usuario (
   rol varchar(10) NOT NULL,
   activo boolean NOT NULL);
 
-INSERT INTO Usuario (nombre, apellido, email, username, password,rol,activo) VALUES ("Rocio","Crespo","rocio@gmail.com","rocio1234","1234","ADMIN",False);
-INSERT INTO Usuario (nombre, apellido, email, username, password,rol,activo) VALUES ("Cintia","Pinaud","cintia@gmail.com","PruebaUser","1234","ADMIN",False);
+INSERT INTO Usuario (nombre, apellido, email, username, password,rol,activo,puntos_ranking) VALUES ("Rocio","Crespo","rocio@gmail.com","rocio1234","1234","ADMIN",False, 3);
+INSERT INTO Usuario (nombre, apellido, email, username, password,rol,activo,puntos_ranking) VALUES ("Cintia","Pinaud","cintia@gmail.com","PruebaUser","1234","ADMIN",False,5);
 # INSERT INTO Carta (nro, palo, valor, imagen) VALUES
 # 	('1', '1', '8', 'oro1.png'),
 # 	('2', '1', '9', 'oro2.png'),

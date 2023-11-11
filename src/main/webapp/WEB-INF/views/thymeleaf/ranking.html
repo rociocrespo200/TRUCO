@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ranking</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div class="overlay">
+    <div class="formulario">
+        <h2>Salas</h2>
+        <div   th:if="${ninguna_usuario == null}" >
+            <div th:each="usuario : ${ListadeUsuarios}">
+                <div class="container">
+                    <form action="#" th:action="@{/IngresaraUsuario}"  method="POST"  class="w-75" th:object="${username_usuario}">
+                        <p th:text="${usuario.username}" name="username"> </p>
+                        <p th:text="${usuario.puntos_ranking}" name="usuario_username"> </p>
+                        <input type="hidden" name="username_usuario" th:value="${usuario.username}">
+                        <button class="btn" Type="Submit">Ver Perfil</button>
+                        <br>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+
+
+</body>
+</html>

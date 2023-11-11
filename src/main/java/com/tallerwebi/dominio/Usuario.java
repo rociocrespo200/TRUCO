@@ -19,7 +19,11 @@ public class Usuario {
     private String password;
     private String rol;
     private Boolean activo = false;
-    private Integer tanto;
+
+
+
+    private Integer puntos_ranking;
+
 
 
     public Long getId() {
@@ -102,12 +106,11 @@ public class Usuario {
         activo = true;
     }
 
-
-    public void setTanto(Integer tantoMasAlto) {
-        this.tanto=tantoMasAlto;
+    public Integer getPuntos_ranking() {
+        return puntos_ranking;
     }
 
-    public Integer getTanto() {
-        return tanto;
+    public void setPuntos_ranking(Integer puntos_ranking) {
+        this.puntos_ranking = puntos_ranking;
     }
 }
