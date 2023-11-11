@@ -25,7 +25,7 @@ public class RepositorioRankingImpl implements RepositorioRanking {
 
     @Override
     public Usuario obtenerusuario(String username) {
-        return (Usuario) sessionFactory.getCurrentSession().createCriteria(Sala.class)
+        return (Usuario) sessionFactory.getCurrentSession().createCriteria(Usuario.class)
                 .add(Restrictions.eq("username", username))
                 .uniqueResult();
     }

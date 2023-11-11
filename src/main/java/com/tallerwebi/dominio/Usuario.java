@@ -19,9 +19,6 @@ public class Usuario {
     private String password;
     private String rol;
     private Boolean activo = false;
-
-
-
     private Integer puntos_ranking;
 
 

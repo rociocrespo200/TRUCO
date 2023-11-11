@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.TreeSet;
 
 @Controller
 public class ControladorRanking {
@@ -30,7 +32,16 @@ public class ControladorRanking {
 
         ModelAndView model = new ModelAndView();
         if (!servicioRanking.obtenerlistadeUsuarios().isEmpty()){
-            List<Usuario> usuarios = servicioRanking.obtenerlistadeUsuarios();
+            TreeSet<Usuario> usuarios = new TreeSet<>(new Comparator<Usuario>() {
+                @Override
+                public int compare(Usuario o1, Usuario o2) {
+                    return -o1.getPuntos_ranking().compareTo(o2.getPuntos_ranking());
+                }
+            });
+
+            usuarios.addAll(servicioRanking.obtenerlistadeUsuarios());
+
+
             model.addObject("ListadeUsuarios",usuarios);
             return model;
 
@@ -48,9 +59,9 @@ public class ControladorRanking {
         ModelAndView model = new ModelAndView();
         Usuario usuario = servicioRanking.obtenerusuario(username_usuario);
         model.addObject("usuario", usuario);
-        //servicioSala.obtenersala(nombre_sala).setCantidad_de_jugadores_en_sala(2);
-        model.setViewName("redirect:/perfil");
+        model.setViewName("perfil");
         return model;
     }
+
 
 }
