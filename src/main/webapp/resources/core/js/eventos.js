@@ -106,6 +106,10 @@ function mandarEventoConAJAX(evento){
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
+
+    var data = JSON.stringify(evento);
+    xhr.send(data);
+
     xhr.onreadystatechange = function() {
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
             let evento = this.responseText;
@@ -119,8 +123,6 @@ function mandarEventoConAJAX(evento){
         }
     };
 
-    var data = JSON.stringify(evento);
-    xhr.send(data);
 }
 
 

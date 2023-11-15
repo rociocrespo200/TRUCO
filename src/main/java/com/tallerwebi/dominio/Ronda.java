@@ -147,6 +147,8 @@ public class Ronda {
                 if(validarSiSeCantoUnEvento("TRUCO")!=null){
                 //si existe un evento de tipo truco obtener el puntaje y pasarsslo por parametos
                     equipo.sumarPuntos(validarSiSeCantoUnEvento("TRUCO").getValor());
+                }else{
+                    equipo.sumarPuntos(1);
                 }
 
             }

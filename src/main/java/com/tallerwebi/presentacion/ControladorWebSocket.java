@@ -19,7 +19,7 @@ public ControladorWebSocket(WebSocketRegistroDeUsuarios registroUsuarios){
     @MessageMapping("/chat")
     @SendTo("/topic/messages")
     public MensajeEnviado getMessages(MensajeRecibido mensajeRecibido,  SimpMessageHeaderAccessor headerAccessor) throws Exception {
-        return new MensajeEnviado(mensajeRecibido.getMessage(), mensajeRecibido.getUsuarioId());
+    return new MensajeEnviado(mensajeRecibido.getMessage(), mensajeRecibido.getUsuarioId());
     }
 
 //    @MessageMapping("/eventos")
