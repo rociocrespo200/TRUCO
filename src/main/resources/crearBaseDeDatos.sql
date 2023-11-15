@@ -16,7 +16,6 @@ Cantidad_de_jugadores_en_sala INT
 );
 
 
-
 INSERT INTO Palo (palo) VALUES
 	('oro'),('espada'),('copa'),('basto');
     
@@ -40,10 +39,11 @@ CREATE TABLE Usuario (
   username varchar(40) NOT NULL,
   password varchar(40) NOT NULL,
   rol varchar(10) NOT NULL,
-  activo boolean NOT NULL);
+  activo boolean NOT NULL,
+  puntos_ranking int not null   );
 
-INSERT INTO Usuario (nombre, apellido, email, username, password,rol,activo) VALUES ("Rocio","Crespo","rocio@gmail.com","rocio1234","1234","ADMIN",False);
-INSERT INTO Usuario (nombre, apellido, email, username, password,rol,activo) VALUES ("Cintia","Pinaud","cintia@gmail.com","PruebaUser","1234","ADMIN",False);
+INSERT INTO Usuario (nombre, apellido, email, username, password,rol,activo,puntos_ranking) VALUES ("Rocio","Crespo","rocio@gmail.com","rocio1234","1234","ADMIN",False,50);
+INSERT INTO Usuario (nombre, apellido, email, username, password,rol,activo,puntos_ranking) VALUES ("Joaquin","Oviedo","joaco_oviedo2@hotmail.com","joa1234","1234","ADMIN",False,30);
 # INSERT INTO Carta (nro, palo, valor, imagen) VALUES
 # 	('1', '1', '8', 'oro1.png'),
 # 	('2', '1', '9', 'oro2.png'),
