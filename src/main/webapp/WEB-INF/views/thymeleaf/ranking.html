@@ -9,29 +9,40 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+<h1 class="h1 blockquote text-center">Ranking</h1>
 
-<div class="overlay">
-    <div class="formulario">
-        <h2>Ranking</h2>
+<div class="container">
+    <table class="table rounded">
+        <thead>
+        <tr class="table-primary">
+            <th scope="col">#</th>
+            <th scope="col">Usuario</th>
+            <th scope="col">Puntos</th>
+            <th scope="col">Perfil</th>
+        </tr>
+        </thead>
+        <thead class="thead-light">
         <div   th:if="${ninguna_usuario == null}" >
-            <div th:each="usuario : ${ListadeUsuarios}">
+            <tr th:each="usuario,u : ${ListadeUsuarios}">
+
                 <div class="container">
                     <form action="#" th:action="@{/IngresaraUsuario}"  method="POST"  class="w-75" th:object="${username_usuario}">
-                        <p th:text="${usuario.username}" name="username"> </p>
-                        <p th:text="${usuario.puntos_ranking}" name="usuario_username"> </p>
+                        <th scope="col" th:text="${u.index+1}"></th>
+                        <th scope="col" th:text="${usuario.username}" name="username"> </th>
+                        <th scope="col" th:text="${usuario.puntos_ranking}" name="usuario_username"> </th>
                         <input type="hidden" name="username_usuario" th:value="${usuario.username}">
-                        <button class="btn" Type="Submit">Ver Perfil</button>
-                        <br>
+                        <th> <button class="btn btn-success" Type="Submit">Ver Perfil</button></th>
 
                     </form>
                 </div>
 
-            </div>
+            </tr>
         </div>
 
+        </thead>
 
 
-    </div>
+    </table>
 </div>
 
 
