@@ -21,16 +21,15 @@
       <img th:src="@{/assets/logo_principal_recortado.png}" alt="logo_principal_recortado">
     </div>
     <div id="perfil_usuario">
-      <div id="imagen_falsa"></div>
       <div id="datos_usuario">
-        <a href="perfil.html"><h3 th:text="${usuario.username}" id="username"></h3></a>
-
+        <form action="#" th:action="@{/IngresaraUsuario}"  method="POST"  class="w-75" th:object="${username_usuario}">
+          <button class="btn btn-info btn-lg" th:text="${usuario.username}" name="usuario_username" Type="Submit"></button>
+          <input type="hidden" name="username_usuario" th:value="${usuario.username}">
+        </form>
         <!--<h3 text="USERNAME" id="username">USERNAME</h3>-->
         <hr>
         <h4 th:text="${usuario.nombre} +' '+ ${usuario.apellido}" id="nombre_completo">Nombre Completo</h4>
         <!--<h4 text="NOMBRE Y APELLIDO" id="nombre_completo">Nombre Completo</h4>-->
-        <p class="historial">Partidas jugadas: 111</p>
-        <p class="historial">Partidas ganadas: 3</p>
       </div>
     </div>
     <nav id="botonera">
@@ -45,7 +44,9 @@
         <li class="botones_menu">
           <a href="ranking.html">RANKING</a>
         </li>
-
+        <li class="botones_menu">
+          <a href="https://es.wikipedia.org/wiki/Truco_argentino">REGLAS DEL JUEGO</a>
+        </li>
       </ul>
     </nav>
     <div id="monedero">
@@ -60,32 +61,7 @@
       <h4><a href="#" id="recargar_saldo">Recargar saldo</a></h4>
     </div>
   </aside>
-  <main id="contenedor_main">
-    <section id="contenedor_variable">
-      <!--<a href="iniciarPartida.html" >Iniciar Partida</a>-->
-    </section>
-    <section id="contenedor_informacion">
-      <article class="informacion_juego">
-        <!-- <div class="contenedor_imagen" id="logo_truco"> -->
-        <img th:src="@{/assets/titulo_truco_recortado.png}" alt="titulo_truco_recortado">
-        <!-- </div> -->
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod aliquam beatae consequatur
-          architecto nam rem animi, illum harum soluta, est assumenda alias nisi quis provident deserunt
-          sunt ullam? Esse, vitae.</p>
-      </article>
-      <article class="informacion_juego">
-        <!-- <div class="contenedor_imagen" id="logo_envido"> -->
-        <img th:src="@{/assets/titulo_envido_recortado.png}" alt="titulo_envido_recortado">
-        <!-- </div> -->
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod aliquam beatae consequatur
-          architecto nam rem animi, illum harum soluta, est assumenda alias nisi quis provident deserunt
-          sunt ullam? Esse, vitae.</p>
-      </article>
-      <p id="reglas">
-        <a href="./">REGLAS DEL JUEGO</a>
-      </p>
-    </section>
-  </main>
+
 </div>
 <script src="./js/script.js"></script>
 <!-- Boostrap core js -->

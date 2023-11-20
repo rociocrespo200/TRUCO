@@ -9,39 +9,49 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+<h1 class="h1 blockquote text-center">Salas</h1>
 
-<div class="overlay">
-    <div class="formulario">
-        <h2>Salas</h2>
+<div class="container">
+
+        <table class="table rounded">
+            <thead>
+            <tr class="table-info">
+                <th scope="col">Nombre</th>
+                <th scope="col">Jugadores</th>
+                <th scope="col">Ingresar</th>
+            </tr>
+            </thead>
+        <thead class="thead-light">
         <div   th:if="${ninguna_sala == null}" >
-            <div th:each="salas : ${ListadeSalas}">
+            <tr th:each="salas : ${ListadeSalas}">
                 <div class="container">
                     <form action="#" th:action="@{/ingresar_a_sala}"  method="POST"  class="w-75" th:object="${nombre_sala}">
-                        <p th:text="${salas.nombre_sala}" name="nombre_sala"> </p>
-                        <p th:text="${salas.cantidad_de_jugadores_en_sala} + '/'+ ${salas.cantidadMaximaJugadores}"></p>
+                        <th scope="col" th:text="${salas.nombre_sala}" name="nombre_sala"> </th>
+                        <th scope="col" th:text="${salas.cantidad_de_jugadores_en_sala} + '/'+ ${salas.cantidadMaximaJugadores}"></th>
 
-
-
-                        <button class="btn" Type="Submit">Ingresar</button>
-                        <br>
+                        <th scope="col"><button class="  btn btn-info" Type="Submit">Ingresar</button></th>
 
                     </form>
                 </div>
 
-            </div>
+            </tr>
         </div>
-
-
-        <form action="#" th:action="@{/crear_sala}"  method="POST"  class="w-75">
+            </thead>
+        </table>
+</div>
+    <div class=" d-flex blockquote text-center ">
+    <div class="container">
+        <form action="#" th:action="@{/crear_sala}"  method="POST"  class="w-75 mx-auto">
 
             <p th:if="${ninguna_sala != null}" class="alert alert-danger" th:text="'Error ' + ${ninguna_sala}">
             </p>
-            <button id="btn-login2" class="btn" Type="Submit">Crear Sala</button>
+            <button id="btn-login2" class=" btn-block btn-lg btn btn-success " Type="Submit">Crear Sala</button>
 
+        </form>
 
 
     </div>
-</div>
+    </div>
 
 
 </body>
