@@ -38,7 +38,27 @@ public class ControladorSala {
 
     }
 
+    @RequestMapping(path = "/abandonarsala", method = RequestMethod.POST)
+    public ModelAndView abandonarsala(@ModelAttribute("nombre_sala") String nombre_sala, HttpServletRequest request) {
+        String nombre_sala2= (String) request.getSession().getAttribute("nombre_sala");
 
+        ModelAndView model = new ModelAndView();
+        Sala sala = servicioSala.obtenersala(nombre_sala2);
+        if(sala.getCantidad_de_jugadores_en_sala()==1){
+            sala.setCantidad_de_jugadores_en_sala(0);
+
+        }
+
+        if(sala.getCantidad_de_jugadores_en_sala()==2){
+            sala.setCantidad_de_jugadores_en_sala(1);
+        }
+
+        servicioSala.modificarsala(sala);
+        model.setViewName("redirect:/salas");
+
+        return model;
+
+    }
 
 
     //Ver HttpServletRequest request como parametro.

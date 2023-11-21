@@ -18,11 +18,17 @@
         <form action="#" th:action="@{/partida}"  method="POST"  class="w-75">
 
             <button id="btn-login" class="btn" Type="Submit" onclick="iniciarPartida()">Sala completa</button>
-
-
-
-
         </form>
+
+            <form action="#" th:action="@{/abandonarsala}"  method="POST"  class="w-75" th:object="${nombre_sala}">
+
+                <button id="btn btn-danger" class="btn btn-danger" Type="Submit">Abandonar Sala</button>
+                <input type="hidden" name="nombre_sala" th:value="${nombre_sala}">
+
+            </form>
+
+
+
     </div>
 </div>
 </body>
