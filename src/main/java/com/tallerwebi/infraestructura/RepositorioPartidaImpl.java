@@ -74,6 +74,7 @@ public class RepositorioPartidaImpl implements RepositorioPartida {
             for (Equipo equipo: partida.obtenerRondaActual().getEquipos()){
                 if(equipo.getPuntos()>=15){
                     partida.setEquipoGanador(equipo);
+                    sumarPuntosRankingAGanador(equipo);
                 }
             }
 
@@ -81,6 +82,17 @@ public class RepositorioPartidaImpl implements RepositorioPartida {
             return true;
         }
         return false;
+    }
+    public void sumarPuntosRankingAGanador(Equipo equipo){
+        Usuario usuario= equipo.getJugadores().get(0);
+        usuario.setPuntos_ranking(usuario.getPuntos_ranking()+5);
+        modificarUsuario(usuario);
+    }
+    @Override
+    public void modificarUsuario(Usuario usuario){
+
+        sessionFactory.getCurrentSession().update(usuario);
+
     }
 
     @Override
