@@ -1,10 +1,7 @@
 package com.tallerwebi.presentacion;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tallerwebi.dominio.Equipo;
-import com.tallerwebi.dominio.Jugada;
-import com.tallerwebi.dominio.ServicioPartida;
-import com.tallerwebi.dominio.Usuario;
+import com.tallerwebi.dominio.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -19,12 +16,16 @@ import java.util.Map;
 public class ControladorPartida {
     private ServicioPartida servicioPartida;
     private final WebSocketRegistroDeUsuarios registroUsuarios;
+    private ServicioSala servicioSala;
 
     @Autowired
-    public ControladorPartida(ServicioPartida servicioPartida, WebSocketRegistroDeUsuarios registroUsuarios) {
+    public ControladorPartida(ServicioSala servicioSala, ServicioPartida servicioPartida, WebSocketRegistroDeUsuarios registroUsuarios) {
         this.registroUsuarios = registroUsuarios;
         this.servicioPartida = servicioPartida;
+        this.servicioSala=servicioSala;
     }
+
+
 
 
     @GetMapping("/iniciarPartida")
@@ -35,16 +36,18 @@ public class ControladorPartida {
     @RequestMapping("/esperarSala")
     public ModelAndView esperarSala(@ModelAttribute("cantidadDejugadores") String cantidadJugadores, HttpServletRequest request) {
         ModelAndView model = new ModelAndView();
-        request.getSession().setAttribute("cantidadDeJugadores", cantidadJugadores);
+         request.getSession().setAttribute("cantidadDeJugadores", cantidadJugadores);
         model.addObject("cantidadJugadoresInt", cantidadJugadores);
+       String nombre_sala= (String) request.getSession().getAttribute("nombre_sala");
 
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
-
         // Registra al usuario con su sesión
         registroUsuarios.registerUser(usuario.getUsername(), usuario.getId());
 
 
         ArrayList<Long> usuariosConectados = new ArrayList<>(registroUsuarios.obtenerUsuariosConectados().values());
+
+        servicioSala.obtenersala(nombre_sala).setCantidad_de_jugadores_en_sala(usuariosConectados.size());
 
         if (registroUsuarios.obtenerCantidadDeUsuarios() == 2) {
             servicioPartida.crearPartida(usuariosConectados);
@@ -76,14 +79,17 @@ public class ControladorPartida {
         ModelAndView model = new ModelAndView();
         request.getSession().setAttribute("cantidadDeJugadores", cantidadJugadores);
         model.addObject("cantidadJugadoresInt", cantidadJugadores);
+        String nombre_sala= (String) request.getSession().getAttribute("nombre_sala");
 
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
-
         // Registra al usuario con su sesión
         registroUsuarios.registerUser(usuario.getUsername(), usuario.getId());
 
 
         ArrayList<Long> usuariosConectados = new ArrayList<>(registroUsuarios.obtenerUsuariosConectados().values());
+        Sala sala= servicioSala.obtenersala(nombre_sala);
+        sala.setCantidad_de_jugadores_en_sala(usuariosConectados.size());
+        servicioSala.modificarsala(sala);
 
         if (registroUsuarios.obtenerCantidadDeUsuarios() == 2) {
             servicioPartida.crearPartida(usuariosConectados);

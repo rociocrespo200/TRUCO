@@ -10,4 +10,8 @@ public interface ServicioSala {
     Sala obtenersala(String nombre);
 
     List<Sala> obtenerlistadeSalas();
+
+    void modificarsala(Sala sala);
+
+    void eliminarsala(Sala sala);
 }

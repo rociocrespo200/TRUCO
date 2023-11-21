@@ -28,6 +28,7 @@
                     <form action="#" th:action="@{/ingresar_a_sala}"  method="POST"  class="w-75" th:object="${nombre_sala}">
                         <th scope="col" th:text="${salas.nombre_sala}" name="nombre_sala"> </th>
                         <th scope="col" th:text="${salas.cantidad_de_jugadores_en_sala} + '/'+ ${salas.cantidadMaximaJugadores}"></th>
+                        <input type="hidden" name="nombre_sala" th:value="${salas.nombre_sala}">
 
                         <th scope="col"><button class="  btn btn-info" Type="Submit">Ingresar</button></th>
 

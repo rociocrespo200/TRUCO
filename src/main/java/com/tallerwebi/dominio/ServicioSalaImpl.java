@@ -41,5 +41,15 @@ public class ServicioSalaImpl implements ServicioSala {
         return (List<Sala>) serviciosalaDao.obtenersalas();
     }
 
+    @Override
+    public void modificarsala(Sala sala){
+        serviciosalaDao.modificarSala(sala);
+    }
+
+    @Override
+    public void eliminarsala(Sala sala) {
+        serviciosalaDao.eliminarsala(sala);
+    }
+
 
 }
