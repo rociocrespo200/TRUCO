@@ -51,7 +51,7 @@ public class ControladorPartida {
 
         if (registroUsuarios.obtenerCantidadDeUsuarios() == 2) {
             servicioPartida.crearPartida(usuariosConectados);
-
+            usuariosConectados.clear();
             //Hacer que se envie que ya estan todos los usuarios conectados.
             model.addObject("iniciarPartida", true);
         }
