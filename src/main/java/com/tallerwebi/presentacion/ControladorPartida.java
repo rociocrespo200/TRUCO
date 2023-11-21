@@ -104,6 +104,12 @@ public class ControladorPartida {
 
         if (registroUsuarios.obtenerCantidadDeUsuarios() == 2){
 
+            if(servicioPartida.obtenerEquipoGanador()!=null){
+                model.addObject("GanadorDePartida",servicioPartida.obtenerEquipoGanador().getJugadores().get(0).getUsername().toString());
+            }
+
+
+
             model.addObject("carta1", servicioPartida.obtenerManoDelJugador(usuario.getId()).get(0));
             model.addObject("carta2", servicioPartida.obtenerManoDelJugador(usuario.getId()).get(1));
             model.addObject("carta3", servicioPartida.obtenerManoDelJugador(usuario.getId()).get(2));

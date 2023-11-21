@@ -66,4 +66,8 @@ public class ServicioPartida {
     public void almazo(Usuario usuario) {
         repositorioPartida.almazo(usuario);
     }
+
+    public Equipo obtenerEquipoGanador(){
+        return repositorioPartida.obtenerGanadorDeLaPartida();
+    }
 }

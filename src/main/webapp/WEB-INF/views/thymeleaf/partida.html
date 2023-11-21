@@ -67,6 +67,18 @@
         </div>
 
     </div>
+
+    <div class="option-container" th:if="${GanadorDePartida!=null}">
+        <div id="popup" class="popup" style="display: none;">
+
+            <!-- <span id="cerrarPopup" class="cerrar-popup">&times;</span> -->
+            <h2 th:text="'El Ganador de la Partida es'+${GanadorDePartida}"></h2>
+            <div>
+                <button  id="abandonar" class="btn-danger">Abandonar partida</button>
+            </div>
+
+        </div>
+    </div>
     <div class="options-menu">
         <div class="round-label">Ronda 1</div>
         <div class="option-container" th:if="${evento!= 'Le canto Retruco'} and ${evento!= 'Le canto Vale Cuatro'}" >

@@ -1,18 +1,20 @@
 package com.tallerwebi.dominio;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
 public class Partida {
 
     Integer cantidadDejugadores;
+
+
+
     private List<Equipo> equipos;
     private List<Usuario> jugadores;
     private List<Ronda> rondas;
+    private Equipo equipoGanador;
 
-    
+
     public Partida() {
         equipos = new ArrayList<>();
         rondas = new ArrayList<>();
@@ -64,5 +66,45 @@ public class Partida {
 
     public List<Usuario> obtenerJugadoresEnLaPartida(){
         return jugadores;
+    }
+
+    public Integer getCantidadDejugadores() {
+        return cantidadDejugadores;
+    }
+
+    public void setCantidadDejugadores(Integer cantidadDejugadores) {
+        this.cantidadDejugadores = cantidadDejugadores;
+    }
+
+    public List<Equipo> getEquipos() {
+        return equipos;
+    }
+
+    public void setEquipos(List<Equipo> equipos) {
+        this.equipos = equipos;
+    }
+
+    public List<Usuario> getJugadores() {
+        return jugadores;
+    }
+
+    public void setJugadores(List<Usuario> jugadores) {
+        this.jugadores = jugadores;
+    }
+
+    public List<Ronda> getRondas() {
+        return rondas;
+    }
+
+    public void setRondas(List<Ronda> rondas) {
+        this.rondas = rondas;
+    }
+
+    public void setEquipoGanador(Equipo equipo) {
+        this.equipoGanador= equipo;
+    }
+
+    public Equipo getEquipoGanador() {
+        return equipoGanador;
     }
 }

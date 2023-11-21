@@ -50,7 +50,19 @@ public class RepositorioPartidaImpl implements RepositorioPartida {
 
     @Override
     public void iniciarRonda() {
+
+        for (Equipo equipo: partida.getEquipos()){
+            if(equipo.getPuntos()>=15){
+                partida.setEquipoGanador(equipo);
+            }
+        }
+
         partida.iniciarRonda(obtenerBaraja());
+    }
+
+    @Override
+    public Equipo obtenerGanadorDeLaPartida() {
+        return partida.getEquipoGanador();
     }
 
     @Override
