@@ -173,7 +173,14 @@ public class Ronda {
 
         }
 
+
+
+
+
     }
+
+
+
 
     private void cantaronEnvido(Evento evento) {
         if(evento.getNombre().contains("QUIERO")){
