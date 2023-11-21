@@ -66,4 +66,8 @@ public class ServicioPartida {
     public void guardarListaEvento(DatosEvento evento) { repositorioPartida.guardarListaEvento(evento);
 
     }
+
+    public Equipo obtenerEquipoGanador(){
+        return repositorioPartida.obtenerGanadorDeLaPartida();
+    }
 }

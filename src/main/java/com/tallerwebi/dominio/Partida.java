@@ -11,8 +11,9 @@ public class Partida {
     private List<Equipo> equipos;
     private List<Usuario> jugadores;
     private List<Ronda> rondas;
+    private Equipo equipoGanador;
 
-    
+
     public Partida() {
         equipos = new ArrayList<>();
         rondas = new ArrayList<>();
@@ -88,4 +89,40 @@ public class Partida {
     public void asignarPuntajeaunequipo(Equipo equipo, Integer puntos){
         equipo.setPuntos(puntos);
     }
+
+
+    public Integer getCantidadDejugadores() {
+        return cantidadDejugadores;
+    }
+
+    public void setCantidadDejugadores(Integer cantidadDejugadores) {
+        this.cantidadDejugadores = cantidadDejugadores;
+    }
+
+
+
+    public List<Usuario> getJugadores() {
+        return jugadores;
+    }
+
+    public void setJugadores(List<Usuario> jugadores) {
+        this.jugadores = jugadores;
+    }
+
+    public List<Ronda> getRondas() {
+        return rondas;
+    }
+
+    public void setRondas(List<Ronda> rondas) {
+        this.rondas = rondas;
+    }
+
+    public void setEquipoGanador(Equipo equipo) {
+        this.equipoGanador= equipo;
+    }
+
+    public Equipo getEquipoGanador() {
+        return equipoGanador;
+    }
+
 }

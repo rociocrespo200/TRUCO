@@ -114,6 +114,11 @@ public class ControladorPartida {
 
         if (registroUsuarios.obtenerCantidadDeUsuarios() == 2) {
 
+            if(servicioPartida.obtenerEquipoGanador()!=null){
+                model.addObject("GanadorDePartida",servicioPartida.obtenerEquipoGanador().getJugadores().get(0).getUsername().toString());
+            }
+
+
             model.addObject("carta1", servicioPartida.obtenerManoDelJugador(usuario.getId()).get(0));
             model.addObject("carta2", servicioPartida.obtenerManoDelJugador(usuario.getId()).get(1));
             model.addObject("carta3", servicioPartida.obtenerManoDelJugador(usuario.getId()).get(2));
@@ -135,15 +140,22 @@ public class ControladorPartida {
     @ResponseBody
     public Object manejarJugada(@RequestBody DatosObjetoEnviado objeto) {
         ObjectMapper objectMapper = new ObjectMapper();
+        ModelAndView model = new ModelAndView();
 
         String tipo = objeto.getTipo();
+        if(servicioPartida.obtenerEquipoGanador()!=null){
+            model.addObject("GanadorDePartida",servicioPartida.obtenerEquipoGanador().getJugadores().get(0).getUsername());
+            model.setViewName("partida");
+            return model;
 
+        }
         if (tipo.equals("jugada")) {
             DatosJugada jugada = objectMapper.convertValue(objeto.getObj(), DatosJugada.class);
 
             servicioPartida.jugarCarta(jugada.getJugador(), jugada.getCarta());
             if (servicioPartida.validarSiTerminoRonda()) {
-                ModelAndView model = new ModelAndView();
+
+
                 model.setViewName("partida");
                 model.addObject("popupTerminoRonda", "La ronda ya termino");
                 return model;

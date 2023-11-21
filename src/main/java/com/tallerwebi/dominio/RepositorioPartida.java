@@ -19,6 +19,8 @@ public interface RepositorioPartida {
 
     void iniciarRonda();
 
+    Equipo obtenerGanadorDeLaPartida();
+
     Jugada obtenerUltimaJugada();
 
     List<Equipo> obtenerJugadoresEnLaPartida();

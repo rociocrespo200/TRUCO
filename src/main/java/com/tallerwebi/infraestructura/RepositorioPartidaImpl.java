@@ -50,8 +50,10 @@ public class RepositorioPartidaImpl implements RepositorioPartida {
 
     @Override
     public void iniciarRonda() {
+
         partida.iniciarRonda(obtenerBaraja());
     }
+
 
     @Override
     public Jugada obtenerUltimaJugada() {
@@ -68,10 +70,22 @@ public class RepositorioPartidaImpl implements RepositorioPartida {
         if(partida.obtenerRondaActual().validarSiLaRondaTermino()){
         //  Long ganador = partida.obtenerRondaActual().getGanador();
         //  partida.asignarPuntaje(partida.obtenerRondaActual().getEquipos());
+
+            for (Equipo equipo: partida.getEquipos()){
+                if(equipo.getPuntos()>=15){
+                    partida.setEquipoGanador(equipo);
+                }
+            }
+
             partida.iniciarRonda(obtenerBaraja());
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Equipo obtenerGanadorDeLaPartida() {
+        return partida.getEquipoGanador();
     }
 
     public List<Carta> obtenerBaraja() {
