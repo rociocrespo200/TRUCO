@@ -155,7 +155,16 @@ public class Ronda {
 
         }
 
-        if(validarSiSeCantoUnEvento("ENVIDO")!=null) {
+        if(validarSiSeCantoUnEvento("FALTA_ENVIDO QUIERO")!=null) {
+            if(manoDelJugador.get(0).getTanto()>=manoDelJugador.get(1).getTanto()) {
+                obtenerEquipoDeUnJugador(manoDelJugador.get(0).getJugador().getId()).sumarPuntos(15-obtenerEquipoContrario(manoDelJugador.get(0).getJugador().getId()).getPuntos());
+            }else{
+                obtenerEquipoContrario(manoDelJugador.get(0).getJugador().getId()).sumarPuntos(15-obtenerEquipoDeUnJugador(manoDelJugador.get(0).getJugador().getId()).getPuntos());
+            }
+        }
+
+
+        if(validarSiSeCantoUnEvento("ENVIDO")!=null && validarSiSeCantoUnEvento("FALTA_ENVIDO QUIERO")==null ) {
             if(manoDelJugador.get(0).getTanto()>=manoDelJugador.get(1).getTanto()) {
                 obtenerEquipoDeUnJugador(manoDelJugador.get(0).getJugador().getId()).sumarPuntos(validarSiSeCantoUnEvento("ENVIDO").getValor());
             }else{
