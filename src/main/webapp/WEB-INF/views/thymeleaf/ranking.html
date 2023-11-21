@@ -11,21 +11,21 @@
 <body>
 <h1 class="h1 blockquote text-center">Ranking</h1>
 
-<div class="container">
+<div class="container rounded">
     <table class="table rounded">
         <thead>
-        <tr class="table-primary">
+        <tr class="table-primary rounded">
             <th scope="col">#</th>
             <th scope="col">Usuario</th>
             <th scope="col">Puntos</th>
             <th scope="col">Perfil</th>
         </tr>
         </thead>
-        <thead class="thead-light">
+        <thead class="thead-light rounded">
         <div   th:if="${ninguna_usuario == null}" >
             <tr th:each="usuario,u : ${ListadeUsuarios}">
 
-                <div class="container">
+                <div class="container rounded">
                     <form action="#" th:action="@{/IngresaraUsuario}"  method="POST"  class="w-75 mx-auto" th:object="${username_usuario}">
                         <th scope="col" th:text="${u.index+1}"></th>
                         <th scope="col" th:text="${usuario.username}" name="username"> </th>

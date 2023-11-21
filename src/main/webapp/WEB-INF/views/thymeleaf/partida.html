@@ -64,20 +64,29 @@
 </div>
 
 <div  class="popup"  id="popup3"  style="display: none" >
+
+    <div th:if="${GanadorDePartida==null}">
     <h1 class="neonText">¡¡ Ronda terminada !!</h1>
-    <p>El ganador es rocioCrespo200</p>
+    </div>
+    <div th:if="${GanadorDePartida!=null}">
+        <!-- <span id="cerrarPopup" class="cerrar-popup">&times;</span> -->
+        <h1>La Partida termino, abandone la misma</h1>
 
-
+        <h2 class="neonText" th:text="'El Ganador de la Partida es '+${GanadorDePartida}"></h2>
+    </div>
 </div>
+
+
 
 
 
 <section class="section_eventos">
 
-    <div th:if="${GanadorDePartida!=null}">
+    <div class="bg-dark mx-auto rounded container border border-primary" th:if="${GanadorDePartida!=null}">
         <!-- <span id="cerrarPopup" class="cerrar-popup">&times;</span> -->
-        <h2 th:text="'El Ganador de la Partida es'+${GanadorDePartida}"></h2>
-        <button   class="btn-danger btn-lg">Abandonar partida</button>
+        <h1 class="text-info rounded ">La Partida termino, abandone la misma</h1>
+
+        <h2 class="neonText rounded" th:text="'El Ganador de la Partida es '+${GanadorDePartida}"></h2>
     </div>
 
     <button id="mostrarPopup" class="btn btn-lg btn-danger abandonar">Abandonar Partida</button>

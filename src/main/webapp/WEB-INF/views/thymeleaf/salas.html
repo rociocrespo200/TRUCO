@@ -11,20 +11,20 @@
 <body>
 <h1 class="h1 blockquote text-center">Salas</h1>
 
-<div class="container">
+<div class="container rounded">
 
-        <table class="table rounded">
+        <table class="table rounded rounded">
             <thead>
-            <tr class="table-info">
+            <tr class="table-info rounded">
                 <th scope="col">Nombre</th>
                 <th scope="col">Jugadores</th>
                 <th scope="col">Ingresar</th>
             </tr>
             </thead>
-        <thead class="thead-light">
+        <thead class="thead-light rounded">
         <div   th:if="${ninguna_sala == null}" >
             <tr th:each="salas : ${ListadeSalas}">
-                <div class="container">
+                <div class="container rounded">
                     <form action="#" th:action="@{/ingresar_a_sala}"  method="POST"  class="w-75 mx-auto" th:object="${nombre_sala}">
                         <th scope="col" th:text="${salas.nombre_sala}" name="nombre_sala"> </th>
                         <th scope="col" th:text="${salas.cantidad_de_jugadores_en_sala} + '/'+ ${salas.cantidadMaximaJugadores}"></th>
@@ -40,8 +40,8 @@
             </thead>
         </table>
 </div>
-    <div class=" d-flex blockquote text-center ">
-    <div class="container">
+    <div class=" d-flex blockquote text-center rounded ">
+    <div class="container rounded">
         <form action="#" th:action="@{/crear_sala}"  method="POST"  class="w-75 mx-auto">
 
             <p th:if="${ninguna_sala != null}" class="alert alert-danger" th:text="'Error ' + ${ninguna_sala}">

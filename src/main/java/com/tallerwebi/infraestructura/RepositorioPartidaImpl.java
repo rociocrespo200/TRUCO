@@ -71,7 +71,7 @@ public class RepositorioPartidaImpl implements RepositorioPartida {
         //  Long ganador = partida.obtenerRondaActual().getGanador();
         //  partida.asignarPuntaje(partida.obtenerRondaActual().getEquipos());
 
-            for (Equipo equipo: partida.getEquipos()){
+            for (Equipo equipo: partida.obtenerRondaActual().getEquipos()){
                 if(equipo.getPuntos()>=15){
                     partida.setEquipoGanador(equipo);
                 }
