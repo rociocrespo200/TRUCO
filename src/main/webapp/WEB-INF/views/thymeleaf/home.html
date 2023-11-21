@@ -17,20 +17,22 @@
 <body>
 <div id="contenedor_principal_flex">
   <aside id="barra_lateral">
+    <div class="d-flex justify-content-center mx-auto">
     <div id="container_logo">
       <img th:src="@{/assets/logo_principal_recortado.png}" alt="logo_principal_recortado">
     </div>
-    <div id="perfil_usuario">
-      <div id="datos_usuario">
-        <form action="#" th:action="@{/IngresaraUsuario}"  method="POST"  class="w-75" th:object="${username_usuario}">
-          <button class="btn btn-info btn-lg" th:text="${usuario.username}" name="usuario_username" Type="Submit"></button>
+    <div class="container d-flex justify-content-center mx-auto">
+        <form action="#" th:action="@{/IngresaraUsuario}"  method="POST"  class="w-75 mx-auto" th:object="${username_usuario}">
+          <button class="btn-info btn-lg"  th:text="${usuario.username}" name="usuario_username" Type="Submit"></button>
           <input type="hidden" name="username_usuario" th:value="${usuario.username}">
         </form>
         <!--<h3 text="USERNAME" id="username">USERNAME</h3>-->
-        <hr>
-        <h4 th:text="${usuario.nombre} +' '+ ${usuario.apellido}" id="nombre_completo">Nombre Completo</h4>
-        <!--<h4 text="NOMBRE Y APELLIDO" id="nombre_completo">Nombre Completo</h4>-->
-      </div>
+        <br>
+        <h4 th:text="${usuario.nombre} +' '+ ${usuario.apellido}" class="h4 blockquote text-center" id="nombre_completo">Nombre Completo</h4>
+
+      <!--<h4 text="NOMBRE Y APELLIDO" id="nombre_completo">Nombre Completo</h4>-->
+    </div>
+      <br>
     </div>
     <nav id="botonera">
       <ul id="lista_botones">

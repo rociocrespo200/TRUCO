@@ -9,27 +9,26 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<div class="overlay">
-    <div class="formulario">
-        <h2>Esperando al resto de jugadores</h2>
+<h1 class="h1 blockquote text-center">Esperando al resto de jugadores</h1>
 
-        <p th:text="${cantidadJugadoresInt}"></p>
+<div class="overlay d-flex justify-content-center mx-auto">
+    <div class=" d-flex justify-content-center mx-auto">
+        <div class="container mx-auto">
+        <form action="#" th:action="@{/partida}"  method="POST"  class="w-75 mx-auto">
 
-        <form action="#" th:action="@{/partida}"  method="POST"  class="w-75">
-
-            <button id="btn-login" class="btn" Type="Submit" onclick="iniciarPartida()">Sala completa</button>
+            <button  class="btn-lg btn-success" Type="Submit" >Sala completa</button>
         </form>
+        </div>
+    <br>
+            <div class="container mx-auto">
+            <form action="#" th:action="@{/abandonarsala}"  method="POST"  class="w-75 mx-auto" th:object="${nombre_sala}">
 
-            <form action="#" th:action="@{/abandonarsala}"  method="POST"  class="w-75" th:object="${nombre_sala}">
-
-                <button id="btn btn-danger" class="btn btn-danger" Type="Submit">Abandonar Sala</button>
+                <button  class="btn-lg btn-danger" Type="Submit">Abandonar Sala</button>
                 <input type="hidden" name="nombre_sala" th:value="${nombre_sala}">
 
             </form>
-
-
-
-    </div>
+        </div>
+        </div>
 </div>
 </body>
 </html>

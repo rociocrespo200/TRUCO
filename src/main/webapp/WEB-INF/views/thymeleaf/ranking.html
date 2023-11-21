@@ -26,7 +26,7 @@
             <tr th:each="usuario,u : ${ListadeUsuarios}">
 
                 <div class="container">
-                    <form action="#" th:action="@{/IngresaraUsuario}"  method="POST"  class="w-75" th:object="${username_usuario}">
+                    <form action="#" th:action="@{/IngresaraUsuario}"  method="POST"  class="w-75 mx-auto" th:object="${username_usuario}">
                         <th scope="col" th:text="${u.index+1}"></th>
                         <th scope="col" th:text="${usuario.username}" name="username"> </th>
                         <th scope="col" th:text="${usuario.puntos_ranking}" name="usuario_username"> </th>

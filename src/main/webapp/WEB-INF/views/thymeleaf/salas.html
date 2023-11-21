@@ -25,7 +25,7 @@
         <div   th:if="${ninguna_sala == null}" >
             <tr th:each="salas : ${ListadeSalas}">
                 <div class="container">
-                    <form action="#" th:action="@{/ingresar_a_sala}"  method="POST"  class="w-75" th:object="${nombre_sala}">
+                    <form action="#" th:action="@{/ingresar_a_sala}"  method="POST"  class="w-75 mx-auto" th:object="${nombre_sala}">
                         <th scope="col" th:text="${salas.nombre_sala}" name="nombre_sala"> </th>
                         <th scope="col" th:text="${salas.cantidad_de_jugadores_en_sala} + '/'+ ${salas.cantidadMaximaJugadores}"></th>
                         <input type="hidden" name="nombre_sala" th:value="${salas.nombre_sala}">
