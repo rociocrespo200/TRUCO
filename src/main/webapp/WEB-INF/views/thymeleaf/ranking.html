@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ranking</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<h1 class="h1 blockquote text-center">Ranking</h1>
+
+<div class="container rounded">
+    <table class="table rounded">
+        <thead>
+        <tr class="table-primary rounded">
+            <th scope="col">#</th>
+            <th scope="col">Usuario</th>
+            <th scope="col">Puntos</th>
+            <th scope="col">Perfil</th>
+        </tr>
+        </thead>
+        <thead class="thead-light rounded">
+        <div   th:if="${ninguna_usuario == null}" >
+            <tr th:each="usuario,u : ${ListadeUsuarios}">
+
+                <div class="container rounded">
+                    <form action="#" th:action="@{/IngresaraUsuario}"  method="POST"  class="w-75 mx-auto" th:object="${username_usuario}">
+                        <th scope="col" th:text="${u.index+1}"></th>
+                        <th scope="col" th:text="${usuario.username}" name="username"> </th>
+                        <th scope="col" th:text="${usuario.puntos_ranking}" name="usuario_username"> </th>
+                        <input type="hidden" name="username_usuario" th:value="${usuario.username}">
+                        <th scope="col"> <button class="btn btn-info" Type="Submit">Ver Perfil</button></th>
+
+                    </form>
+                </div>
+
+            </tr>
+        </div>
+
+        </thead>
+
+
+    </table>
+</div>
+
+
+</body>
+</html>

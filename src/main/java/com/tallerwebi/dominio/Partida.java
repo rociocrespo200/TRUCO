@@ -11,8 +11,9 @@ public class Partida {
     private List<Equipo> equipos;
     private List<Usuario> jugadores;
     private List<Ronda> rondas;
+    private Equipo equipoGanador;
 
-    
+
     public Partida() {
         equipos = new ArrayList<>();
         rondas = new ArrayList<>();
@@ -65,4 +66,63 @@ public class Partida {
     public List<Usuario> obtenerJugadoresEnLaPartida(){
         return jugadores;
     }
+
+    public List<Equipo> getEquipos() {
+        return equipos;
+    }
+
+    public void setEquipos(List<Equipo> equipos) {
+        this.equipos = equipos;
+    }
+
+    public void asignarPuntaje(List<Equipo> equiposRonda) {
+
+        for(Equipo equipo : equipos){
+            for(Equipo equipo2 : equiposRonda){
+                if(equipo.getId() == equipo2.getId()){
+                    int puntos = equipo.getPuntos() + equipo2.getPuntos();
+                    equipo.setPuntos(puntos);
+                }
+            }
+        }
+    }
+    public void asignarPuntajeaunequipo(Equipo equipo, Integer puntos){
+        equipo.setPuntos(puntos);
+    }
+
+
+    public Integer getCantidadDejugadores() {
+        return cantidadDejugadores;
+    }
+
+    public void setCantidadDejugadores(Integer cantidadDejugadores) {
+        this.cantidadDejugadores = cantidadDejugadores;
+    }
+
+
+
+    public List<Usuario> getJugadores() {
+        return jugadores;
+    }
+
+    public void setJugadores(List<Usuario> jugadores) {
+        this.jugadores = jugadores;
+    }
+
+    public List<Ronda> getRondas() {
+        return rondas;
+    }
+
+    public void setRondas(List<Ronda> rondas) {
+        this.rondas = rondas;
+    }
+
+    public void setEquipoGanador(Equipo equipo) {
+        this.equipoGanador= equipo;
+    }
+
+    public Equipo getEquipoGanador() {
+        return equipoGanador;
+    }
+
 }

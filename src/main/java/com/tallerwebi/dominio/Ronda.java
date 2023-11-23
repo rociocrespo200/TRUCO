@@ -6,17 +6,30 @@ import java.util.List;
 public class Ronda {
     private List<Equipo> equipos;
     private List<Usuario> jugadores;
+
+    private Long ganador;
     private List<Carta> baraja; //hay que pasarle la baraja desde la base de datos;
     private List<Mano> manoDelJugador;
+
+    private List<Evento> eventos;
+
+    private List<String> eventosTemp;// eventosTemp[0] = "TRUCO" eventosTemp[1] = "QUIERO"
     private List<Jugada> cartasEnLaMesa;
+    private List<Jugada> jugadasDeLaRonda;
+
+    //private List<Evento> eventos;
 
 
     public Ronda(List<Equipo> equipos, List<Usuario> jugadores, List<Carta> baraja) {
         this.equipos = equipos;
         this.jugadores = jugadores;
         this.baraja = baraja;
+        this.ganador = null;
         manoDelJugador = new ArrayList<>();
         cartasEnLaMesa = new ArrayList<>();
+        jugadasDeLaRonda = new ArrayList<>();
+        eventosTemp = new ArrayList<>();
+        eventos = new ArrayList<>();
         //repartir();
     }
 
@@ -36,32 +49,220 @@ public class Ronda {
                 cartasAleatorias.add(cartaAleatoria);
                 cartas.remove(cartaAleatoria);
             }
-            manoDelJugador.add(new Mano (jugadores.get(i), cartasAleatorias));
+
+            manoDelJugador.add(new Mano (jugadores.get(i), cartasAleatorias, calculartanto(cartasAleatorias)));
+
+
         }
+
+
     }
+
+    private Integer calculartanto( List<Carta> cartasAleatorias) {
+        Integer ValordeTanto=0;
+        Integer TantoMasAlto=0;
+        for (Carta carta:cartasAleatorias){
+            for (Carta carta2:cartasAleatorias){
+                if (carta!=carta2){
+                    if (carta.getPalo()==carta2.getPalo()){
+
+                        if (carta.getNro()>=10){
+                            ValordeTanto+=10;
+                        }
+                        if (carta2.getNro()>=10){
+                            ValordeTanto+=10;
+                        }
+                        if (carta.getNro()<10){
+                            ValordeTanto+=carta.getNro()+10;
+                        }
+                        if (carta2.getNro()<10){
+                            ValordeTanto+=carta2.getNro()+10;
+                        }
+                    }
+                    if (carta.getPalo()!=carta2.getPalo()){
+                        if (carta.getNro()>carta2.getNro()){
+                            ValordeTanto=carta.getNro();
+                        }else {
+                            ValordeTanto=carta2.getNro();
+                        }
+
+                    }
+                }
+
+                if (TantoMasAlto<ValordeTanto) {
+                    TantoMasAlto = ValordeTanto;
+                }
+                ValordeTanto=0;
+            }
+        }
+
+        return TantoMasAlto;
+
+    }
+
+
 
     public void jugarCarta(Usuario usuario, Carta carta){
-        cartasEnLaMesa.add(new Jugada(usuario.getId(), carta));
+
+        if(cartasEnLaMesa.isEmpty() || obtenerUltimaJugada().getJugador() != usuario.getId()){
+            cartasEnLaMesa.add(new Jugada(usuario.getId(), carta));
+            jugadasDeLaRonda.add(new Jugada(usuario.getId(), carta));
+        }
+
+
+        if(cartasEnLaMesa.size() == 2){
+            terminarMano();
+        }
+        if(validarSiLaRondaTermino()){
+            terminarRonda();
+        }
 
     }
 
-    private boolean validarSiYaTiroCarta(Usuario usuario) {
-        for (int i = 0; i < manoDelJugador.size(); i++) {
-           if( manoDelJugador.get(i).getJugador() == usuario) return true;
+    //-------------- RONDA --------------
+    public void terminarRonda(){
+        calcularGanadorRonda();
+        manoDelJugador.clear();
+        repartir();
+    }
+
+    private void calcularGanadorRonda() {
+        List<Long> usuariosGanadores = new ArrayList<>();
+
+        for(Jugada jugada : jugadasDeLaRonda){
+            if(jugada.getJugadaGanadora()){
+                if(usuariosGanadores.contains(jugada.getJugador())) {
+                    ganador = jugada.getJugador();
+                    asignarPuntosDeRonda();
+                    break;
+                };
+                usuariosGanadores.add(jugada.getJugador());
+            }
         }
+    }
+
+    private void asignarPuntosDeRonda() {
+        for (Equipo equipo : equipos) {
+            if(equipo.buscarJugador(ganador) != null){
+                if(validarSiSeCantoUnEvento("TRUCO")!=null){
+                //si existe un evento de tipo truco obtener el puntaje y pasarsslo por parametos
+                    equipo.sumarPuntos(validarSiSeCantoUnEvento("TRUCO").getValor());
+                }else{
+                    equipo.sumarPuntos(1);
+                }
+
+            }
+
+        }
+
+        if(validarSiSeCantoUnEvento("FALTA_ENVIDO QUIERO")!=null) {
+            if(manoDelJugador.get(0).getTanto()>=manoDelJugador.get(1).getTanto()) {
+                obtenerEquipoDeUnJugador(manoDelJugador.get(0).getJugador().getId()).sumarPuntos(15-obtenerEquipoContrario(manoDelJugador.get(0).getJugador().getId()).getPuntos());
+            }else{
+                obtenerEquipoContrario(manoDelJugador.get(0).getJugador().getId()).sumarPuntos(15-obtenerEquipoDeUnJugador(manoDelJugador.get(0).getJugador().getId()).getPuntos());
+            }
+        }
+
+
+        if(validarSiSeCantoUnEvento("ENVIDO")!=null && validarSiSeCantoUnEvento("FALTA_ENVIDO QUIERO")==null ) {
+            if(manoDelJugador.get(0).getTanto()>=manoDelJugador.get(1).getTanto()) {
+                obtenerEquipoDeUnJugador(manoDelJugador.get(0).getJugador().getId()).sumarPuntos(validarSiSeCantoUnEvento("ENVIDO").getValor());
+            }else{
+                obtenerEquipoContrario(manoDelJugador.get(0).getJugador().getId()).sumarPuntos(validarSiSeCantoUnEvento("ENVIDO").getValor());
+            }
+
+        }
+
+
+
+
+
+    }
+
+
+
+
+    private void cantaronEnvido(Evento evento) {
+        if(evento.getNombre().contains("QUIERO")){
+
+        }
+        else{
+
+        }
+    }
+
+
+    private Evento validarSiSeCantoUnEvento(String nombre) {
+        for (Evento evento: eventos){
+
+            if (evento.getNombre().contains(nombre)){
+                return evento;
+            }
+        }
+        return null;
+    }
+
+    public boolean validarSiLaRondaTermino2() {
+        List<Long> usuariosGanadores = new ArrayList<>();
+
+        for(Jugada jugada : jugadasDeLaRonda){
+            if(jugada.getJugadaGanadora()){
+                if(usuariosGanadores.contains(jugada.getJugador())) return true;
+                usuariosGanadores.add(jugada.getJugador());
+            }
+        }
+
         return false;
     }
 
-    private boolean validarSiTerminoMano() {
-        return cartasEnLaMesa.size() == jugadores.size() && !manoDelJugador.isEmpty();
-    };
+    public boolean validarSiLaRondaTermino() {
+        return jugadasDeLaRonda.size() == 6;
+    }
 
-    public Jugada terminarMano(){
-        Jugada jugadaGanadora = calcularGanador();
-        //manoDelJugador.clear();
-        //ordenarJugadores(ganador);
-        jugadaGanadora.setJugadaGanadora(true);
-        return jugadaGanadora;
+
+    //-------------- MANO --------------
+    public void terminarMano(){
+        calcularGanadorMano();
+        cartasEnLaMesa.clear();
+
+    }
+
+    private void calcularGanadorMano() {
+        Jugada jugada1 = cartasEnLaMesa.get(0);
+        Jugada jugada2 = cartasEnLaMesa.get(1);
+
+        if(jugada1.getCarta().getValor() < jugada2.getCarta().getValor()) {
+            buscarJugada(jugada2).setJugadaGanadora(true);
+        }
+        else{
+            buscarJugada(jugada1).setJugadaGanadora(true);
+        }
+    }
+
+    private Jugada buscarJugada(Jugada jugada2) {
+        for(Jugada jugada : jugadasDeLaRonda){
+            if(jugada.getCarta() == jugada2.getCarta()){
+                return jugada;
+            }
+        }
+        return null;
+    }
+
+    public List<Carta> getBaraja() {
+        return baraja;
+    }
+
+    public List<Mano> getManosDeLosJugadores() {
+        return manoDelJugador;
+    }
+
+    public List<Jugada> getCartasEnLaMesa() {
+        return cartasEnLaMesa;
+    }
+
+
+    public Jugada obtenerUltimaJugada() {
+        return (jugadasDeLaRonda.size() != 1) ? jugadasDeLaRonda.get(jugadasDeLaRonda.size()-1) : jugadasDeLaRonda.get(0);
     }
 
     private void ordenarJugadores(Usuario ganador) {
@@ -79,40 +280,55 @@ public class Ronda {
         }
     }
 
-    private Jugada calcularGanador() {
-        Jugada jugadaGanadora = cartasEnLaMesa.get(0);
+    public Long getGanador() {
+        return ganador;
+    }
 
-        for (int i = 1; i < cartasEnLaMesa.size(); i++) {
-            if(cartasEnLaMesa.get(i).getCarta().getValor() > jugadaGanadora.getCarta().getValor()){
-                jugadaGanadora = cartasEnLaMesa.get(i);
+    public List<Equipo> getEquipos() {
+        return equipos;
+    }
+
+    public void registroEvento(Evento evento, Long usuario) {
+    if (evento.getNombre().contains("QUIERO")){
+        eventos.add(evento);
+    }else{
+        obtenerEquipoContrario(usuario).setPuntos(evento.getValor());
+    }
+    }
+
+    private Equipo obtenerEquipoDeUnJugador(Long usuario) {
+
+        for (Equipo equipo:equipos){
+            if(equipo.getJugadores().get(0).getId().equals(usuario)){
+                return equipo;
             }
         }
-
-        return jugadaGanadora;
+        return null;
     }
 
-    public List<Carta> getBaraja() {
-        return baraja;
-    }
+    private Equipo obtenerEquipoContrario(Long usuario) {
 
-    public List<Mano> getManosDeLosJugadores() {
-        return manoDelJugador;
-    }
-
-    public List<Jugada> getCartasEnLaMesa() {
-        return cartasEnLaMesa;
-    }
-
-    public boolean validarSiLaRondaTermino() {
-        return cartasEnLaMesa.size() == jugadores.size() * 3;
-    }
-
-    public Jugada obtenerUltimaJugada() {
-        if (validarSiTerminoMano()) {
-            manoDelJugador.clear();
-           return terminarMano();
-
+        for (Equipo equipo:equipos){
+            if(!equipo.getJugadores().get(0).getId().equals(usuario)){
+                return equipo;
+            }
         }
-        return cartasEnLaMesa.get(cartasEnLaMesa.size()-1);
+        return null;
+    }
+
+    public String obtenerUltimoEvento() {
+        return eventosTemp.get(eventosTemp.size()-1);
+    }
+
+    public void guardarListaEvento(String nombreEvento) {
+        eventosTemp.add(nombreEvento);
+    }
+
+    public List<String> getEventosTemp() {
+        return eventosTemp;
+    }
+
+    public void setEventosTemp(List<String> eventosTemp) {
+        this.eventosTemp = eventosTemp;
     }
 }

@@ -1,5 +1,7 @@
 package com.tallerwebi.dominio;
 
+import com.tallerwebi.presentacion.DatosEvento;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +19,19 @@ public interface RepositorioPartida {
 
     void iniciarRonda();
 
+    void modificarUsuario(Usuario usuario);
+
+    Equipo obtenerGanadorDeLaPartida();
+
     Jugada obtenerUltimaJugada();
 
-    List<Usuario> obtenerJugadoresEnLaPartida();
+    List<Equipo> obtenerJugadoresEnLaPartida();
+
+    boolean validarSiTerminoRonda();
+
+    void registrarEvento(DatosEvento eventoDB);
+
+    String obtenerUltimoEvento();
+
+    void guardarListaEvento(DatosEvento evento);
 }

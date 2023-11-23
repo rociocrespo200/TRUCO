@@ -2,11 +2,13 @@ package com.tallerwebi.presentacion;
 
 import com.tallerwebi.dominio.Sala;
 import com.tallerwebi.dominio.ServicioSala;
+import com.tallerwebi.dominio.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Random;
 
@@ -36,15 +38,35 @@ public class ControladorSala {
 
     }
 
+    @RequestMapping(path = "/abandonarsala", method = RequestMethod.POST)
+    public ModelAndView abandonarsala(@ModelAttribute("nombre_sala") String nombre_sala, HttpServletRequest request) {
+        String nombre_sala2= (String) request.getSession().getAttribute("nombre_sala");
 
+        ModelAndView model = new ModelAndView();
+        Sala sala = servicioSala.obtenersala(nombre_sala2);
+        if(sala.getCantidad_de_jugadores_en_sala()==1){
+            sala.setCantidad_de_jugadores_en_sala(0);
+
+        }
+
+        if(sala.getCantidad_de_jugadores_en_sala()==2){
+            sala.setCantidad_de_jugadores_en_sala(1);
+        }
+
+        servicioSala.modificarsala(sala);
+        model.setViewName("redirect:/salas");
+
+        return model;
+
+    }
 
 
     //Ver HttpServletRequest request como parametro.
     @RequestMapping(path = "/ingresar_a_sala", method = RequestMethod.POST)
-    public ModelAndView IngresaraSala(@ModelAttribute("nombre_sala") String nombre_sala) {
+    public ModelAndView IngresaraSala(@ModelAttribute("nombre_sala") String nombre_sala, HttpServletRequest request) {
         ModelAndView model = new ModelAndView();
-
-        //servicioSala.obtenersala(nombre_sala).setCantidad_de_jugadores_en_sala(2);
+        request.getSession().setAttribute("nombre_sala", nombre_sala);
+        servicioSala.obtenersala(nombre_sala).setCantidad_de_jugadores_en_sala(1);
         model.setViewName("redirect:/sala_espera");
         return model;
     }

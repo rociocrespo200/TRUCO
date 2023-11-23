@@ -1,5 +1,6 @@
 package com.tallerwebi.dominio;
 
+import com.tallerwebi.presentacion.DatosEvento;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,7 +50,24 @@ public class ServicioPartida {
         return repositorioPartida.obtenerUltimaJugada();
     }
 
-    public List<Usuario>  obtenerJugadoresEnLaPartida() {
+    public List<Equipo>  obtenerJugadoresEnLaPartida() {
         return repositorioPartida.obtenerJugadoresEnLaPartida();
+    }
+
+    public boolean validarSiTerminoRonda() {
+        return repositorioPartida.validarSiTerminoRonda();
+    }
+
+    public void registrarEvento(DatosEvento eventoDB) { repositorioPartida.registrarEvento(eventoDB);
+    }
+
+    public String obtenerUltimoEvento() {return repositorioPartida.obtenerUltimoEvento();}
+
+    public void guardarListaEvento(DatosEvento evento) { repositorioPartida.guardarListaEvento(evento);
+
+    }
+
+    public Equipo obtenerEquipoGanador(){
+        return repositorioPartida.obtenerGanadorDeLaPartida();
     }
 }

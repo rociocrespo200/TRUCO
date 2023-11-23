@@ -5,10 +5,12 @@ import java.util.List;
 public class Mano {
     private Usuario jugador;
     private List<Carta> cartasEnLaMano;
-    public Mano(Usuario jugador, List<Carta> cartasEnLaMano) {
+
+    private Integer tanto;
+    public Mano(Usuario jugador, List<Carta> cartasEnLaMano , Integer tanto) {
         this.cartasEnLaMano = cartasEnLaMano;
         this.jugador = jugador;
-
+        this.tanto=tanto;
     }
 
     public Usuario getJugador() {
@@ -26,4 +28,13 @@ public class Mano {
     public void setCartasEnLaMano(List<Carta> cartasEnLaMano) {
         this.cartasEnLaMano = cartasEnLaMano;
     }
+
+    public Integer getTanto() {
+        return tanto;
+    }
+
+    public void setTanto(Integer tanto) {
+        this.tanto = tanto;
+    }
+
 }

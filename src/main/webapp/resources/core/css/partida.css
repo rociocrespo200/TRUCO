@@ -96,6 +96,7 @@ div.mano_mia img{
     flex-direction: column;
     gap: 10px;
     padding: 100px 0;
+    z-index: 510;
 }
 .boton_eventos {
     display: block;
@@ -193,11 +194,11 @@ div.mano_mia img{
     scale: 1.05;
 }
 
-.popup{
-    background-color: white;
+.popup {
     gap: 20px;
+    background-color: #180023;
     width: 50%;
-    padding: 150px 100px;
+    padding: 100px 50px;
     border-radius: 6px;
     color: #ffffff;
     font-size: 22px;
@@ -205,5 +206,132 @@ div.mano_mia img{
     top: 30%;
     left: 25%;
     text-align: center;
+    z-index: 300;
+    border-radius: 2rem;
+    font-family: "Sacramento", sans-serif;
+    box-shadow: 0 0 .2rem #fff,
+    0 0 .2rem #fff,
+    0 0 2rem #820ab1,
+    0 0 0.8rem #bc13fe,
+    0 0 2.8rem #bc13fe,
+    inset 0 0 1.3rem #bc13fe;
+}
 
+.neonText {
+    color: #fff;
+    text-shadow:
+            0 0 21px #fff,
+            0 0 42px #bc13fe,
+            0 0 82px #bc13fe,
+            0 0 92px #bc13fe,
+            0 0 102px #bc13fe,
+            0 0 151px #bc13fe;
+}
+
+.misCartas{
+    position: relative;
+
+}
+
+/* #carta1{
+    bottom: 273px;
+    left: 163px;
+}
+
+#carta2{
+    bottom: 273px;
+}
+
+#carta3{
+    bottom: 273px;
+    right: 163px;
+} */
+
+
+
+@keyframes tirarCarta1 {
+    0% {bottom: 0; left: 0;}
+    100% { bottom: 273px; left: 163px; scale: 1.1;}
+}
+
+@keyframes tirarCarta2 {
+    0% {bottom: 0;}
+    100% { bottom: 273px;  scale: 1.1;}
+}
+@keyframes tirarCarta3 {
+    0% {bottom: 0; left: 0;}
+    100% { bottom: 273px; right: 163px; scale: 1.1;}
+}
+
+/*mensajes */
+.emisor, .receptor {
+    min-width: 200px;
+    height: max-content;
+    border-radius: 10px;
+    text-align: center;
+    padding: 15px;
+    margin: 10px;
+    position: absolute;
+    background-color: #ffffff;
+    font-family: "Sacramento", sans-serif;
+    font-size: 20px;
+    box-shadow: 1px 12px 33px rgba(0, 0, 0, 0.541);
+}
+
+.emisor::after {
+    border: 25px solid #ffffff;
+    content: '';
+    border-left-color: transparent;
+    border-bottom-color: transparent;
+    border-right-color: transparent;
+    position: absolute;
+    bottom: -48px;
+    left: calc(50% - 25px);
+}
+
+
+.emisor{
+    bottom: 35%;
+    right: 25%;
+}
+
+.receptor::before {
+    border: 25px solid #ffffff;
+    content: '';
+    border-left-color: transparent;
+    border-bottom-color: transparent;
+    border-right-color: transparent;
+    position: absolute;
+    bottom: 55px;
+    rotate: 180deg;
+    left: calc(50% - 25px);
+}
+
+.receptor{
+    top: 25%;
+    left: 25%;
+}
+
+.bloquear{
+    background-color: #00000067;
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    display: flex;
+    text-align: center;
+    z-index: 1000;
+}
+
+.bloquear > p{
+    color: #fff;
+    font-family: "Sacramento", sans-serif;
+    width: 100%;
+    font-size: 40px;
+    margin: auto;
+}
+
+#bloquear2{
+    background-color: transparent;
+    height: 30vh;
+    bottom: 0;
 }

@@ -4,7 +4,6 @@ public class Jugada {
 
     private Long jugador;
     private Carta carta;
-
     private Boolean jugadaGanadora;
 
     public Jugada() {
