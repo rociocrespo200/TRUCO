@@ -257,3 +257,41 @@ article.informacion_juego p{
 #logo_envido{
     background-image: url("../assets/titulo_envido.png");
 }
+
+button.btn-info{
+    color:Lightslategray;
+    background-color: transparent;
+    border: 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+
+button.btn-info:hover{
+    animation-name:rainbow;
+    animation-duration:2s;
+    animation-iteration-count:infinite;
+    border: 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.Mes:hover,.Dia:hover{
+    animation-name:rainbow;
+    animation-duration:2s;
+    animation-iteration-count:infinite;
+}
+
+@keyframes rainbow{
+    0%{color:red}
+    10%{color:orange}
+    20%{color:yellow}
+    30%{color:green}
+    40%{color:cyan}
+    50%{color:skyblue}
+    60%{color:blue}
+    70%{color:indigo}
+    80%{color:violet}
+    90%{color:grey}
+    100%{color:red}
+}
