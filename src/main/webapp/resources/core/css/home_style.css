@@ -28,9 +28,14 @@
     'opsz' 30
 }
 
+/*modificado*/
+
 body{
     background-image: url("../assets/fondo_home.jpg");
-    background-size: contain;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
 }
 
 div#contenedor_principal_flex{
@@ -46,6 +51,9 @@ aside#barra_lateral{
     display: flex;
     flex-direction: column;
     opacity: 0.8;
+    min-width: 300px;
+    text-align: center;
+    height: 100vh;
 }
 
 aside#barra_lateral #container_logo{
@@ -56,7 +64,10 @@ aside#barra_lateral #container_logo img{
     max-width: 100%;
     align-self: center;
     overflow: hidden;
+    padding: 15px;
 }
+
+/*modificado*/
 
 aside#barra_lateral #perfil_usuario{
     margin: 0.5em;

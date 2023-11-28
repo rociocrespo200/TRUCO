@@ -5,6 +5,11 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     color: white;
+
+    /*modificado*/
+    background-position: center;
+    min-height: 100vh;
+    /*modificado*/
 }
 
 /*.overlay {
@@ -49,6 +54,10 @@ a.btn:hover{
     margin: auto;
     width: 30%;
     height: 100vh;
+
+        /*modificado*/
+        min-width: 300px;
+        /*modificado*/
 }
 
 .formulario input {
@@ -107,4 +116,8 @@ div.img_container{
 div.img_container img{
     width: 100%;
     height: auto;
+}
+
+h1.h1{
+    padding-top: 100px;
 }
