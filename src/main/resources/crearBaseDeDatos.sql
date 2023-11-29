@@ -5,6 +5,8 @@ DROP TABLE IF EXISTS Carta;
 DROP TABLE IF EXISTS Palo;
 DROP TABLE IF EXISTS Usuario;
 DROP TABLE IF EXISTS Evento;
+DROP TABLE IF EXISTS Sala;
+
 
 CREATE TABLE IF NOT EXISTS Palo 
 (
@@ -52,6 +54,7 @@ CREATE TABLE Usuario (
 INSERT INTO Usuario (nombre, apellido, email, username, password,rol,activo,puntos_ranking) VALUES ("Rocio","Crespo","rocio@gmail.com","rocio1234","1234","ADMIN",False,50);
 INSERT INTO Usuario (nombre, apellido, email, username, password,rol,activo,puntos_ranking) VALUES ("Joaquin","Oviedo","joaco_oviedo2@hotmail.com","joa1234","1234","ADMIN",False,47);
 
+INSERT INTO Sala(nombre_sala,cantidadMAximaJugadores,Cantidad_de_jugadores_en_sala)VALUES("6XY88HXRTGWJ3M3G4T",2,0);
  INSERT INTO Carta (nro, palo, valor, imagen) VALUES
  	('1', '1', '8', 'oro1.png'),
  	('2', '1', '9', 'oro2.png'),

@@ -2,6 +2,10 @@ body{
     background-image: url('../assets/fondo_home.jpg');
     background-size: cover;
     background-repeat:no-repeat;
+
+    /*modificado*/
+    background-position: center;
+    min-height: 100vh;
 }
 
 *{
